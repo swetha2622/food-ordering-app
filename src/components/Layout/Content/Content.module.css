@@ -18,5 +18,6 @@
 .menu-content {
     justify-content: flex-start;
     flex-direction: column;
+    color: white
 ;
 }

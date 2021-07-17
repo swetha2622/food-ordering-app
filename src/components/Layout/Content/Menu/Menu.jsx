@@ -6,6 +6,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import {FcExpand} from 'react-icons/fc';
+import MenuItem from './MenuItem';
 
 import '../../../../App.css';
 const useStyles = makeStyles((theme) => ({
@@ -17,41 +18,84 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: theme.typography.fontWeightRegular,
     },
   }));
+  const menuItems = [
+    {
+        "menu_id": 1,
+        "menu_name": "Tomato Soup",
+        "price": 3.99,
+        "menu_group_id": 1,
+        "menu_group_name": "Soups",
+        "description": "Delicious soup made from fresh tomatoes. Delicious soup made from fresh tomatoes."
+    },
+    {
+        "menu_id": 2,
+        "menu_name": "Rasam",
+        "price": 3.99,
+        "menu_group_id": 1,
+        "menu_group_name": "Soups",
+        "description": "Delicious soup made from fresh tomatoes.Spicy vegetable soup with tamarind sauce."
+    },
+    {
+      "menu_id": 1,
+      "menu_name": "Tomato Soup",
+      "price": 3.99,
+      "menu_group_id": 2,
+      "menu_group_name": "Appetizer",
+      "description": "Delicious soup made from fresh tomatoes.Delicious soup made from fresh tomatoes."
+  },
+  {
+      "menu_id": 2,
+      "menu_name": "Rasam",
+      "price": 3.99,
+      "menu_group_id": 2,
+      "menu_group_name": "Appetizer",
+      "description": "Spicy vegetable soup with tamarind sauce."
+  }
+]
+
+const groupMenuItems = (items, key) => items.reduce(
+  (result, item) => ({
+    ...result,
+    [item[key]]: [
+      ...(result[item[key]] || []),
+      item,
+    ],
+  }), 
+  {},
+);
 
 const Menu = () => {
     const classes = useStyles();
+
+    const getMenuContent = () => {
+      const groupedMenuData = groupMenuItems(menuItems, 'menu_group_id');
+      return <>
+      {Object.keys(groupedMenuData)
+      .map((menugroupid, index1) => {
+        const menugroup = groupedMenuData[menugroupid];
+        const menugroupTitle = menugroup[0]['menu_group_name'];
+        const accordian = (<Accordion key={`menu+${index1}`}>
+                    <AccordionSummary
+                      expandIcon={<FcExpand />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Typography className={classes.heading}>{menugroupTitle}</Typography>
+                    </AccordionSummary>
+                    { menugroup.map((menuItem, index2) =>
+                      <AccordionDetails key={`menuItem+${index2}`}>
+                        <MenuItem menuItem={menuItem}/>
+                      </AccordionDetails>)}
+              </Accordion>)
+              return accordian;
+        }
+      )}
+      </>
+    }
+
     return <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
             <div>Menu</div>
-            <Accordion>
-        <AccordionSummary
-          expandIcon={<FcExpand />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>Accordion 1</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<FcExpand />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Accordion 2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+            {getMenuContent()}
         </div>
 
 }

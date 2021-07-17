@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import commonClass from '../Content.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
@@ -7,7 +7,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import {FcExpand} from 'react-icons/fc';
 import MenuItem from './MenuItem';
-
+import menuService from '../../../../services/Menu-Service';
 import '../../../../App.css';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,6 +65,15 @@ const groupMenuItems = (items, key) => items.reduce(
 );
 
 const Menu = () => {
+  const [data, setData] = useState([]);
+   useEffect(  () => {
+      getData();
+  },[]);
+
+   const getData = async () => {
+    const tempData = await menuService.getMenuList();
+    tempData && setData(tempData);
+  }
     const classes = useStyles();
 
     const getMenuContent = () => {

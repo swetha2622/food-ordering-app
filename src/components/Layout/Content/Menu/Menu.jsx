@@ -18,40 +18,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: theme.typography.fontWeightRegular,
     },
   }));
-  const menuItems = [
-    {
-        "menu_id": 1,
-        "menu_name": "Tomato Soup",
-        "price": 3.99,
-        "menu_group_id": 1,
-        "menu_group_name": "Soups",
-        "description": "Delicious soup made from fresh tomatoes. Delicious soup made from fresh tomatoes."
-    },
-    {
-        "menu_id": 2,
-        "menu_name": "Rasam",
-        "price": 3.99,
-        "menu_group_id": 1,
-        "menu_group_name": "Soups",
-        "description": "Delicious soup made from fresh tomatoes.Spicy vegetable soup with tamarind sauce."
-    },
-    {
-      "menu_id": 1,
-      "menu_name": "Tomato Soup",
-      "price": 3.99,
-      "menu_group_id": 2,
-      "menu_group_name": "Appetizer",
-      "description": "Delicious soup made from fresh tomatoes.Delicious soup made from fresh tomatoes."
-  },
-  {
-      "menu_id": 2,
-      "menu_name": "Rasam",
-      "price": 3.99,
-      "menu_group_id": 2,
-      "menu_group_name": "Appetizer",
-      "description": "Spicy vegetable soup with tamarind sauce."
-  }
-]
 
 const groupMenuItems = (items, key) => items.reduce(
   (result, item) => ({
@@ -65,13 +31,13 @@ const groupMenuItems = (items, key) => items.reduce(
 );
 
 const Menu = () => {
-  const [data, setData] = useState([]);
-   useEffect(  () => {
+  const [menuItems, setData] = useState([]);
+  useEffect(  () => {
       getData();
   },[]);
 
-   const getData = async () => {
-    const tempData = await menuService.getMenuList();
+  const getData = async () => {
+    const tempData = await menuService.fetchAllItems();
     tempData && setData(tempData);
   }
     const classes = useStyles();

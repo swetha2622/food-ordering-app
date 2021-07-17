@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-import React from 'react';
 import RestService from './Rest-Service';
 import Endpoints from '../constants/endpoint';
  const  MenuService ={

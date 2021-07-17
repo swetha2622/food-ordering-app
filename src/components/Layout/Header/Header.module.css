@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    background-color: darkslategray;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.label {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.cart {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: #271507 ;
+    cursor: pointer;
+}
+.cart-text {
+    font-size: 12px;
+    padding: 2px;
+}
+.cart-badge {
+    border-radius: 50%;
+    background-color: #271507;
+    min-width: 15px;
+    min-height: 15px;
+    font-size: 8px;
+    color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}

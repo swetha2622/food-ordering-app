@@ -1,0 +1,22 @@
+.content {
+    display: flex;
+    min-height: 85vh;
+    align-items: center;
+    justify-content: center;
+}
+.order-button {
+    color: darkslategray;
+    background-color: #ffffff;
+    border-radius: 20px ;
+    padding: 5px 25px;
+    font-family: inherit;
+    font-weight: bolder;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+.menu-content {
+    justify-content: flex-start;
+    flex-direction: column;
+;
+}

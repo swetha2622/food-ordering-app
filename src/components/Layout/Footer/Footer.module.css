@@ -1,0 +1,37 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    justify-content: space-between;
+    padding: 5px 10px;
+    align-items: baseline;
+}
+
+.footer > div{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: darkslategray;
+}
+
+.footer-heading {
+    font-size: 15px;
+    font-weight: bolder;
+    border-bottom: 2px solid darkslategray;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+.cards-section {
+    display: flex;
+    flex: 1;
+    justify-content: left;
+
+}
+.cards-section > *{
+    padding: 5px;
+    font-size: 25px;
+}

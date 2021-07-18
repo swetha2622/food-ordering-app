@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {AiOutlinePlus, AiOutlineMinus} from 'react-icons/ai';
-import { act } from '@testing-library/react';
 
 const useStyles = makeStyles((theme) => ({
     root: {

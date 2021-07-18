@@ -1,10 +1,9 @@
 .App {
   text-align: center;
   background-image: url('./images/background-image.jpeg');
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-position: center;
   background-size: cover;
-  height: 100vh;
   align-items: center;
   justify-content: center;
   background-size: cover;
@@ -14,4 +13,5 @@
   min-height: 85vh;
   align-items: center;
   justify-content: center;
+  padding-bottom: 50px;
 }

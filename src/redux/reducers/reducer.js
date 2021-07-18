@@ -18,11 +18,28 @@ console.log(action);
           menuItemsLoading: false,
           menuItems: action.payload
         };
-      case ACTION_TYPES.UPDATE_CART:
+      case ACTION_TYPES.UPDATE_CART:{
+          const menuIndex = state.cartItems.findIndex(cartItem => cartItem.menu_id === action.payload.menu_id);
+          let updatedCartItems = [...state.cartItems];
+          if(menuIndex === -1) {
+            updatedCartItems.push(action.payload);
+            } else {
+              updatedCartItems[menuIndex] = action.payload;
+            }
         return {
           ...state,
-          cartItems: [...state.cartItems, action.payload]
+          cartItems: updatedCartItems
         };
+      }
+      case ACTION_TYPES.DELETE_FROM_CART : {
+        const menuIndex = state.cartItems.findIndex(cartItem => cartItem.menu_id === action.payload.menu_id);
+        let updatedCartItems = [...state.cartItems];
+        updatedCartItems.splice(menuIndex, 1)
+        return {
+          ...state,
+          cartItems: updatedCartItems
+        };
+      }
       default:
         return state;
     }

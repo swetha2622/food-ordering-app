@@ -3,6 +3,7 @@
     min-height: 85vh;
     align-items: center;
     justify-content: center;
+    padding-bottom: 50px;
 }
 .order-button {
     color: darkslategray;
@@ -32,4 +33,26 @@
 }
 .margin-10{
     margin: 10px;
+}
+
+.checkout-content {
+    flex-direction: row
+}
+
+.checkout-content > div {
+    display: flex;
+    background-color: #ffffff;
+    margin: 10px;
+    border: 1px solid black;
+    min-height: 40vw;
+    flex: 1;
+    border-radius: 5px;
+    font-style: normal;
+    flex-direction: column;
+    padding: 10px 15px;
+}
+
+.checkout-content > div > * {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
 }

@@ -2,7 +2,8 @@
 import Menu from './components/Layout/Content/Menu/Menu';
 import Cart from './components/Layout/Content/Cart/Cart';
 import Content from './components/Layout/Content/Content';
-
+import Login from './components/Layout/Content/Login/Login';
+import Admin from './components/Layout/Content/admin/Admin'
 const routes = [
     {
       path: "/menu",
@@ -26,20 +27,16 @@ const routes = [
     //     }
     //   ]
     // },
-    // {
-    //     path: "/admin",
-    //     component: Admin,
-    //     routes: [
-    //       {
-    //         path: "/admin/orders",
-    //         component: Orders
-    //       },
-    //       {
-    //         path: "/admin/menu",
-    //         component: Menu
-    //       }
-    //     ]
-    //   }
+     {
+        path: "/login",
+        component: Login,
+        
+      },
+      {
+        path: "/admin",
+        component: Admin,
+        
+      },
      {
       path: "/",
       component: Content

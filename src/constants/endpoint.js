@@ -3,7 +3,8 @@ const  Endpoints = {
    URLS:{
     menugroupid:"/menugroupid",
     fetchmenugroup:"/fetchmenugroup",
-    fetch:"/fetch"
+    fetch:"/fetch",
+    authenticate:"/authenticate"
    }
 } 
 export default Endpoints;

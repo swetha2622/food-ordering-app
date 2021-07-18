@@ -1,16 +1,20 @@
 import './App.css';
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
   Route,
   Switch,
 } from "react-router-dom";
+import { history } from './redux/store';
+
+import { ConnectedRouter as Router } from 'connected-react-router';
+
 import routes from './routes';
 import Header from './components/Layout/Header/Header';
 import Footer from './components/Layout/Footer/Footer';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
       <Header count="2"/>
         <Switch>
           {routes.map((route, i) => (
@@ -27,7 +31,6 @@ export default App;
 
 
 function RouteWithSubRoutes(route) {
-  console.log(route);
   return (
     <Route
       exact

@@ -1,4 +1,5 @@
 import React ,{useEffect,useState}from 'react';
+import { connect } from 'react-redux';
 import commonClass from '../Content.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
@@ -7,7 +8,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import {FcExpand} from 'react-icons/fc';
 import MenuItem from './MenuItem';
-import menuService from '../../../../services/Menu-Service';
+// import menuService from '../../../../services/Menu-Service';
+import {asyncGetMenuItems} from '../../../../redux/actions';
 import '../../../../App.css';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const groupMenuItems = (items, key) => items.reduce(
+const groupMenuItems = (items, key) => items.length > 0 && items?.reduce(
   (result, item) => ({
     ...result,
     [item[key]]: [
@@ -30,18 +32,22 @@ const groupMenuItems = (items, key) => items.reduce(
   {},
 );
 
-const Menu = () => {
-  const [menuItems, setData] = useState([]);
-  useEffect(  () => {
-      getData();
+const Menu = (props) => {
+  const {menuItems} = props
+  // const [menuItems, setMenuItems] = useState([]);
+  useEffect(() => {
+    // const getData = async () => {
+      props.fetchAllItems();
+      // await menuService.fetchAllItems();
+      // setMenuItems(data);
+    // }
+    // getData();
   },[]);
 
-  const getData = async () => {
-    const tempData = await menuService.fetchAllItems();
-    tempData && setData(tempData);
-  }
     const classes = useStyles();
 
+    const addToCart = (count) => {
+    }
     const getMenuContent = () => {
       const groupedMenuData = groupMenuItems(menuItems, 'menu_group_id');
       return <>
@@ -57,10 +63,12 @@ const Menu = () => {
                     >
                       <Typography className={classes.heading}>{menugroupTitle}</Typography>
                     </AccordionSummary>
-                    { menugroup.map((menuItem, index2) =>
+                    { 
+                    menugroup.map((menuItem, index2) =>
                       <AccordionDetails key={`menuItem+${index2}`}>
-                        <MenuItem menuItem={menuItem}/>
-                      </AccordionDetails>)}
+                        <MenuItem menuItem={menuItem} addToCart={addToCart} />
+                      </AccordionDetails>)
+                    }
               </Accordion>)
               return accordian;
         }
@@ -70,9 +78,24 @@ const Menu = () => {
 
     return <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
             <div>Menu</div>
-            {getMenuContent()}
+            {menuItems?.length > 0 && getMenuContent()}
         </div>
 
 }
 
-export default Menu;
+// export default Menu;
+
+
+const mapStateToProps = (state) => {
+  return {
+    menuItems: state.reducer.menuItems
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAllItems: () => dispatch(asyncGetMenuItems())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

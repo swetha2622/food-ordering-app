@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {AiOutlinePlus, AiOutlineMinus} from 'react-icons/ai';
+import { act } from '@testing-library/react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,20 +24,21 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const AmountButton = (props) => {
+const AmountButton = ({
+    count,
+    updateItemCount
+}) => {
     const classes = useStyles();
-    const [count, setCount] = React.useState('1');
-    const updateCount = (event) => {
-        setCount(event.target.value);
-    }
     return (<div className={classes.root}>
-            <button className={`${classes.minusbutton} ${classes.button}`}>
+            <button className={`${classes.minusbutton} ${classes.button}`} 
+            onClick={() => updateItemCount('decrement')}>
                 <AiOutlineMinus/>
             </button>
             <input type='text' value={count}
             className={classes.input} 
-            onChange={updateCount}/>
-            <button className={`${classes.plusbutton} ${classes.button}`}>
+            onChange={(event)=> updateItemCount('', event)}/>
+            <button className={`${classes.plusbutton} ${classes.button}`} 
+            onClick={() => updateItemCount('increment')}>
                 <AiOutlinePlus />
             </button>
     </div>)

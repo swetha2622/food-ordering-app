@@ -1,18 +1,18 @@
-import ACTION_TYPES from '../action_types';
-import menuService from '../../services/Menu-Service';
-
+import ACTION_TYPES from "../action_types";
+import menuService from "../../services/Menu-Service";
+import { push } from "connected-react-router";
 export const getMenuItems = (bool) => {
   return {
     type: ACTION_TYPES.FETCH_MENU_DETAILS,
-    isLoading: bool
+    isLoading: bool,
   };
 };
 
 export const getMenuItemsIsSuccess = (payload) => {
-    return {
-      type: ACTION_TYPES.FETCH_MENU_DETAILS_IS_SUCCESS,
-      payload
-    };
+  return {
+    type: ACTION_TYPES.FETCH_MENU_DETAILS_IS_SUCCESS,
+    payload,
+  };
 };
 
 export const updateCart = (payload) => {
@@ -43,4 +43,14 @@ export const asyncGetMenuItems = () => {
     getData();
     };
 };
-
+export const loginSuccess = (payload) => {
+  return {
+    type: ACTION_TYPES.LOGIN_SUCCSS,
+    payload,
+  };
+};
+export const logoutSuccess = () => {
+  return {
+    type: ACTION_TYPES.LOGIN_SUCCSS,
+  };
+};

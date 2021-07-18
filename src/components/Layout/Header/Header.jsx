@@ -24,7 +24,7 @@ const Header = props => {
             </div>
         </div>
     </>
-}
+};
 
 const mapStateToProps = (state) => {
     return {

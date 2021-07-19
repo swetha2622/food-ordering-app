@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {useHistory} from  'react-router-dom';
+import Button from '@material-ui/core/Button';
 import commonClass from '../Content.module.css';
 import '../../../../App.css';
 import CartItem from './CartItem';
@@ -14,7 +15,11 @@ const Cart = ({cartItems}) => {
             return <CartItem cartItem={cartItem} key={`cart-${index}`}/>
         })}
         </div>
-        <button onClick={()=>history.push('/checkout')}> Checkout </button>
+        <br/>
+        <Button variant="contained" 
+            onClick={()=> history.push('./checkout') }
+            color="darkslategray" 
+            > Checkout </Button>
         </div>)
     }
 

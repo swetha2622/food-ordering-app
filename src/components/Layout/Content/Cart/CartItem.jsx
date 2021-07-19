@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import AmountButton from '../Menu/AmountButton';
 import {updateCart, deleteCartItem} from '../../../../redux/actions';
-
+import soup from '../Menu/soup.jpeg';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '75vw',
@@ -63,7 +63,8 @@ const CartItem = ({cartItem, addToCart, deleteCartItem}) => {
             <CardContent>
                 <div className={classes.details}>
                     <div className={classes.media}>
-                        <img src='' alt='FoodImage' />
+                        {/* <img src='' alt='FoodImage' /> */}
+                        <img src={soup} alt='FoodImage' width='50' height='50'/>
                     </div>
                     <div className={classes.content}>
                         <div className={classes.contentHead}>{cartItem.menu_name}</div>

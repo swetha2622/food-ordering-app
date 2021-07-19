@@ -58,17 +58,20 @@ const OrderDetails = ({cartItems}) => {
       <div style={{flex: 1, textAlign: 'right'}}>{item.price * item.count}</div>
     </div>)
   }) : <>No items in cart</>
+  const taxAmount = (orderTotal * 9.5)/100;
+  orderTotal+=taxAmount;
+
   const details = <>
-  <div className={classes.heading}>
-    1. Review Your Order
-  </div>
-  <div>{itemsForReview}</div>
-  <div className={`${classes.alignItems} ${classes.taxAmount}`}>
-    <div>Tax</div><div>${parseFloat((orderTotal * 9.5)/100).toFixed(2)}</div>
+    <div className={classes.heading}>
+      1. Review Your Order
     </div>
-    <div className={`${classes.alignItems} ${classes.orderTotal}`}>
-    <div>Order Total</div><div>${parseFloat(orderTotal).toFixed(2)}</div>
-  </div>
+    <div>{itemsForReview}</div>
+    <div className={`${classes.alignItems} ${classes.taxAmount}`}>
+      <div>Tax</div><div>${parseFloat(taxAmount).toFixed(2)}</div>
+      </div>
+      <div className={`${classes.alignItems} ${classes.orderTotal}`}>
+      <div>Order Total</div><div>${parseFloat(orderTotal).toFixed(2)}</div>
+    </div>
   </>
 
   return details;
@@ -127,6 +130,7 @@ const PaymentDetails = () => {
     cardNumber: '',
     firstName: '',
     lastName: '',
+    cvv: '',
     zipcode: ''
   })
 
@@ -151,7 +155,10 @@ const PaymentDetails = () => {
     <br/><br/>
     <TextField label="Last Name on Card" variant="outlined" size="small" fullWidth 
     value={userData.lastName} onChange={(evt)=> handleDataChange('lastName', evt)}/>
-    <br/><br/>    
+    <br/><br/> 
+    <TextField label="CVV" variant="outlined" size="small" fullWidth
+    value={userData.cvv} onChange={(evt)=> handleDataChange('cvv', evt)}/>
+    <br/><br/>   
     <TextField label="Zip" variant="outlined" size="small" fullWidth
     value={userData.zipcode} onChange={(evt)=> handleDataChange('zipcode', evt)}/>
     <br/><br/>

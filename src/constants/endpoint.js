@@ -4,7 +4,8 @@ const  Endpoints = {
     menugroupid:"/menugroupid",
     fetchmenugroup:"/fetchmenugroup",
     fetch:"/fetch",
-    authenticate:"/authenticate"
+    authenticate:"/authenticate",
+    submitOrder: "/customerOrderDetails"
    }
 } 
 export default Endpoints;

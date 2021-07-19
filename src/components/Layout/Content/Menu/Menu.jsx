@@ -1,14 +1,15 @@
-import React ,{useEffect,useState}from 'react';
+import React ,{useEffect}from 'react';
 import { connect } from 'react-redux';
 import commonClass from '../Content.module.css';
 import { makeStyles } from '@material-ui/core/styles';
+import {useHistory} from  'react-router-dom';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import {FcExpand} from 'react-icons/fc';
 import MenuItem from './MenuItem';
-// import menuService from '../../../../services/Menu-Service';
+import Button from '@material-ui/core/Button';
 import {asyncGetMenuItems} from '../../../../redux/actions';
 import '../../../../App.css';
 const useStyles = makeStyles((theme) => ({
@@ -16,9 +17,12 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
     heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: '20px'
     },
+    button : {
+      backgroundColor: 'white',
+      color:'darkslategray'
+    }
   }));
 
 const groupMenuItems = (items, key) => items.length > 0 && items?.reduce(
@@ -33,21 +37,14 @@ const groupMenuItems = (items, key) => items.length > 0 && items?.reduce(
 );
 
 const Menu = (props) => {
+  const history = useHistory();
   const {menuItems} = props
-  // const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
-    // const getData = async () => {
       props.fetchAllItems();
-      // await menuService.fetchAllItems();
-      // setMenuItems(data);
-    // }
-    // getData();
   },[]);
 
     const classes = useStyles();
 
-    const addToCart = (count) => {
-    }
     const getMenuContent = () => {
       const groupedMenuData = groupMenuItems(menuItems, 'menu_group_id');
       return <>
@@ -66,7 +63,7 @@ const Menu = (props) => {
                     { 
                     menugroup.map((menuItem, index2) =>
                       <AccordionDetails key={`menuItem+${index2}`}>
-                        <MenuItem menuItem={menuItem} addToCart={addToCart} />
+                        <MenuItem menuItem={menuItem}/>
                       </AccordionDetails>)
                     }
               </Accordion>)
@@ -77,14 +74,18 @@ const Menu = (props) => {
     }
 
     return <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
-            <div>Menu</div>
+            <div><h1>Menu</h1></div>
             {menuItems?.length > 0 && getMenuContent()}
+            <br/>
+            <Button variant="contained" 
+            onClick={()=> history.push('./cart') }
+            color="darkslategray" 
+            className={classes.button}>
+              View Cart
+            </Button>
         </div>
 
 }
-
-// export default Menu;
-
 
 const mapStateToProps = (state) => {
   return {

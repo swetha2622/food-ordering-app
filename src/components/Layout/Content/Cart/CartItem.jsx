@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import AmountButton from './AmountButton';
-import {updateCart} from '../../../../redux/actions';
-import soup from './soup.jpeg';
+import AmountButton from '../Menu/AmountButton';
+import {updateCart, deleteCartItem} from '../../../../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,19 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+      flex: 1
   },
   content: {
     display: 'flex',
-    flex: 4,
+    flex: 2,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'start'
-  },
-  contentDescription: {
-    fontSize: '10px'
+    justifyContent: 'space-evenly'
   },
   actions: {
     flex: 1,
@@ -48,44 +41,43 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MenuItem = ({menuItem, addToCart}) => {
+const CartItem = ({cartItem, addToCart, deleteCartItem}) => {
   const classes = useStyles();
-  const [count, setCount] = React.useState(1);
+
   const updateItemCount = (action, event) => {
+    let {count} = cartItem;
         if(action === 'increment') {
-            setCount(Number(count)+1);
+          count = count + 1;
         } else if(action === 'decrement') {
-            Number(count) > 1 && setCount(Number(count) - 1);
+            count = count > 1 ? count - 1 : count;
         } else {
-            setCount(event.target.value);
+          count = Number(event.target.value);
         }
+      addToCart(cartItem, count);
+    }
+    const deleteItemFromCart = () => {
+      deleteCartItem(cartItem);
     }
       return (
         <Card className={classes.root}>
             <CardContent>
                 <div className={classes.details}>
                     <div className={classes.media}>
-                        <img src={soup} alt='FoodImage' width='50' height='50'/>
+                        <img src='' alt='FoodImage' />
                     </div>
                     <div className={classes.content}>
-                        <div className={classes.contentHead}>{menuItem.menu_name}</div>
-                        <div className={classes.contentDescription}>{menuItem.description}</div>
+                        <div className={classes.contentHead}>{cartItem.menu_name}</div>
                     </div>
+                    <div>{cartItem.count * cartItem.price}</div>
                     <div className={classes.actions}>
-                        <div>${menuItem.price}</div>
-                    </div>
-                    <div className={classes.actions}>    
                         <div>
                           <AmountButton 
-                          count={count}
+                          count={cartItem.count}
                           updateItemCount={updateItemCount}/>
                         </div>
-                        <div>
-                            <button 
-                            className={`${classes.button}`}
-                            onClick={()=> addToCart(menuItem, count)}
-                            >Add to Cart</button>
-                        </div>
+                    </div>
+                    <div>
+                      <button onClick={deleteItemFromCart}>Delete</button>
                     </div>
                 </div>
             </CardContent>
@@ -96,7 +88,7 @@ const MenuItem = ({menuItem, addToCart}) => {
 
 const mapStateToProps = (state) => {
   return {
-    menuItems: state.reducer.menuItems
+    cartItems: state.reducer.cartItems
   };
 };
 
@@ -104,8 +96,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, count) => dispatch(updateCart({
       ...item, count
+    })),
+    deleteCartItem: item => dispatch(deleteCartItem({
+      item
     }))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

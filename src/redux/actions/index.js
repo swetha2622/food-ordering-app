@@ -1,10 +1,23 @@
 import ACTION_TYPES from "../action_types";
 import menuService from "../../services/Menu-Service";
-import { push } from "connected-react-router";
 import adminService from "../../services/Admin.Service";
 export const getMenuItems = (bool) => {
   return {
     type: ACTION_TYPES.FETCH_MENU_DETAILS,
+    isLoading: bool,
+  };
+};
+
+export const submitOrder = (bool) => {
+  return {
+    type: ACTION_TYPES.SUBMIT_ORDER,
+    isLoading: bool,
+  };
+};
+
+export const submitOrderIsSuccess = (bool) => {
+  return {
+    type: ACTION_TYPES.SUBMIT_ORDER_IS_SUCCESS,
     isLoading: bool,
   };
 };
@@ -66,5 +79,16 @@ export const asyncGetAllOrders = () => {
       dispatch(getAllOrdersSuccess(data));
     };
     getData();
+  };
+};
+
+export const asyncSumbitOrder = (payload) => {
+  return (dispatch) => {
+    dispatch(submitOrder(true));
+    const postData = async () => {
+      await menuService.submitOrder(payload);
+      dispatch(submitOrder(false));
+    };
+    postData();
   };
 };

@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
 import commonClass from '../Content.module.css';
+import {asyncSumbitOrder} from '../../../../redux/actions';
+
 import '../../../../App.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +78,7 @@ const OrderDetails = ({cartItems}) => {
 
   return details;
 }
-const UserDetailsForm = () => {
+const UserDetailsForm = ({setUserData}) => {
   const classes = useStyles();
   const [userData, setUser] = React.useState({
     firstName: '',
@@ -92,6 +94,7 @@ const UserDetailsForm = () => {
     let userCopy = {...userData};
     userCopy[key] = evt.target.value
     setUser(userCopy);
+    setUserData(userCopy);
   }
 
   return <>
@@ -124,7 +127,7 @@ const UserDetailsForm = () => {
   </>
 }
 
-const PaymentDetails = () => {
+const PaymentDetails = ({submitOrder}) => {
   const classes = useStyles();
   const [userData, setUser] = React.useState({
     cardNumber: '',
@@ -163,19 +166,42 @@ const PaymentDetails = () => {
     value={userData.zipcode} onChange={(evt)=> handleDataChange('zipcode', evt)}/>
     <br/><br/>
 
-    <Button variant="contained" color="darkslategray" className={classes.button}>
+    <Button variant="contained" 
+    onClick={()=> submitOrder()}
+    color="darkslategray" 
+    className={classes.button}>
       Make Payment
     </Button>
   </div>
   </>
 }
 
-const Checkout = ({cartItems}) => {
+const Checkout = ({cartItems, submitOrder}) => {
+  const [userData, setUserData] = React.useState();
+
+  const submitOrderCreated = () => {
+    const orders = cartItems.map(item=> {
+      return {
+        "orderQuantity": item.count,
+        "orderName": item.menu_name
+    }
+    })
+    const request = {
+      "address": userData.address,
+      "firstName": userData.firstName,
+      "lastName": userData.lastName,
+      "orders": orders,
+      "telephoneNumber": userData.phone,
+      "city": userData.city,
+      "zip": userData.zipcode,
+      "email": userData.email
+    }
+    submitOrder(request);
+  }
     return (<div className={`${commonClass['content']} ${commonClass['checkout-content']}`} >
         <div><OrderDetails cartItems={cartItems}/></div>
-        <div><UserDetailsForm /></div>
-        <div><PaymentDetails /></div>
-
+        <div><UserDetailsForm setUserData={setUserData} /></div>
+        <div><PaymentDetails submitOrder={submitOrderCreated}/></div>
         </div>)
     }
 
@@ -187,6 +213,7 @@ const mapStateToProps = (state) => {
   
   const mapDispatchToProps = (dispatch) => {
     return {
+      submitOrder: (request) => dispatch(asyncSumbitOrder(request)) 
     };
   };
   

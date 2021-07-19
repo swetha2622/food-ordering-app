@@ -16,6 +16,14 @@ import Endpoints from '../constants/endpoint';
         .then(response=>{
             return response
         });
+    },
+    async submitOrder(payload) {
+        let url = Endpoints.API+ Endpoints['URLS']["submitOrder"];
+        
+        return await RestService.postData(url, payload)
+        .then(response=>{
+            return response
+        });
     }
 } 
 export default MenuService;

@@ -8,8 +8,11 @@ import CartItem from './CartItem';
 
 const Cart = ({cartItems}) => {
   const history = useHistory();
-    return (<div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
-        Your Cart
+    return (
+    <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
+        {cartItems.length > 0 ?
+        <>Your Cart
+        
         <div className="cart-content">
         {cartItems.map((cartItem, index) => {
             return <CartItem cartItem={cartItem} key={`cart-${index}`}/>
@@ -20,7 +23,10 @@ const Cart = ({cartItems}) => {
             onClick={()=> history.push('./checkout') }
             color="darkslategray" 
             > Checkout </Button>
-        </div>)
+            </> : 
+            <div>No items in cart</div>}
+        </div>
+        )
     }
 
 const mapStateToProps = (state) => {

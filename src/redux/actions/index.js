@@ -1,6 +1,8 @@
 import ACTION_TYPES from "../action_types";
 import menuService from "../../services/Menu-Service";
 import adminService from "../../services/Admin.Service";
+import { push } from 'connected-react-router';
+
 export const getMenuItems = (bool) => {
   return {
     type: ACTION_TYPES.FETCH_MENU_DETAILS,
@@ -87,7 +89,9 @@ export const asyncSumbitOrder = (payload) => {
     dispatch(submitOrder(true));
     const postData = async () => {
       await menuService.submitOrder(payload);
+      alert('Order has been placed succesfully.')
       dispatch(submitOrder(false));
+      dispatch(push('/'));
     };
     postData();
   };

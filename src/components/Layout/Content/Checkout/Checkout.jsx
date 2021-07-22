@@ -127,9 +127,9 @@ const UserDetailsForm = ({setUserData}) => {
   </>
 }
 
-const PaymentDetails = ({submitOrder}) => {
+const PaymentDetails = ({submitOrder, setPaymentData}) => {
   const classes = useStyles();
-  const [userData, setUser] = React.useState({
+  const [paymentData, setPayment] = React.useState({
     cardNumber: '',
     firstName: '',
     lastName: '',
@@ -138,9 +138,10 @@ const PaymentDetails = ({submitOrder}) => {
   })
 
   const handleDataChange = (key, evt) => {
-    let userCopy = {...userData};
-    userCopy[key] = evt.target.value
-    setUser(userCopy);
+    let userCopy = {...paymentData};
+    userCopy[key] = evt.target.value;
+    setPayment(userCopy);
+    setPaymentData(userCopy);
   }
 
   return <>
@@ -151,19 +152,19 @@ const PaymentDetails = ({submitOrder}) => {
     <br/>
 
     <TextField label="Card Number" variant="outlined" size="small" fullWidth
-    value={userData.cardNumber} onChange={(evt)=> handleDataChange('cardNumber', evt)}/>
+    value={paymentData.cardNumber} onChange={(evt)=> handleDataChange('cardNumber', evt)}/>
     <br/><br/>
     <TextField label="First Name on Card" variant="outlined" size="small" fullWidth 
-    value={userData.firstName} onChange={(evt)=> handleDataChange('firstName', evt)}/>
+    value={paymentData.firstName} onChange={(evt)=> handleDataChange('firstName', evt)}/>
     <br/><br/>
     <TextField label="Last Name on Card" variant="outlined" size="small" fullWidth 
-    value={userData.lastName} onChange={(evt)=> handleDataChange('lastName', evt)}/>
+    value={paymentData.lastName} onChange={(evt)=> handleDataChange('lastName', evt)}/>
     <br/><br/> 
     <TextField label="CVV" variant="outlined" size="small" fullWidth
-    value={userData.cvv} onChange={(evt)=> handleDataChange('cvv', evt)}/>
+    value={paymentData.cvv} onChange={(evt)=> handleDataChange('cvv', evt)}/>
     <br/><br/>   
     <TextField label="Zip" variant="outlined" size="small" fullWidth
-    value={userData.zipcode} onChange={(evt)=> handleDataChange('zipcode', evt)}/>
+    value={paymentData.zipcode} onChange={(evt)=> handleDataChange('zipcode', evt)}/>
     <br/><br/>
 
     <Button variant="contained" 
@@ -177,14 +178,49 @@ const PaymentDetails = ({submitOrder}) => {
 }
 
 const Checkout = ({cartItems, submitOrder}) => {
-  const [userData, setUserData] = React.useState();
+  const [userData, setUserData] = React.useState({});
+  const [paymentData, setPaymentData] = React.useState({});
+  const handleValidation = () => {
+    let validationErrors = false;
+    if(Object.keys(userData).length === 0) {
+      alert('Please enter user info');
+      validationErrors = true;
+    }
+    else if(userData.firstName === '' || userData.lastName === '' || userData.address === '' || 
+    userData.phone === '' || userData.city === '' || userData.zip === '' || userData.email === '') {
+      alert('Fill the delivery details');
+      validationErrors = true;
+    }
+    else if(Object.keys(paymentData).length === 0) {
+      alert('Please enter payment info');
+      validationErrors = true;
+    }
+    else if(paymentData.cardNumber === '' || paymentData.cardNumber.length < 16 ) {
+      alert('Please verify your card info');
+      validationErrors = true;
+    }
+    else if(paymentData.cvv === '' || paymentData.cvv.length < 3 ) {
+      alert('Please verify your cvv');
+      validationErrors = true;
+    }
+    else if(paymentData.firstName === '' || paymentData.lastName === '' ) {
+      alert('Please verify your name on card ');
+      validationErrors = true;
+    }
+    else if(paymentData.zip === '' || paymentData.zip.length < 5 ) {
+      alert('Please verify your zip code');
+      validationErrors = true;
+    }
+    return validationErrors;
+  }
 
   const submitOrderCreated = () => {
+    if(!handleValidation()) {
     const orders = cartItems.map(item=> {
       return {
         "orderQuantity": item.count,
         "orderName": item.menu_name
-    }
+      }
     })
     const request = {
       "address": userData.address,
@@ -198,10 +234,11 @@ const Checkout = ({cartItems, submitOrder}) => {
     }
     submitOrder(request);
   }
+  }
     return (<div className={`${commonClass['content']} ${commonClass['checkout-content']}`} >
         <div><OrderDetails cartItems={cartItems}/></div>
         <div><UserDetailsForm setUserData={setUserData} /></div>
-        <div><PaymentDetails submitOrder={submitOrderCreated}/></div>
+        <div><PaymentDetails submitOrder={submitOrderCreated} setPaymentData={setPaymentData}/></div>
         </div>)
     }
 

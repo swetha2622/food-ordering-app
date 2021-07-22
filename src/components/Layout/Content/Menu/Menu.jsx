@@ -75,14 +75,20 @@ const Menu = (props) => {
 
     return <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
             <div><h1>Menu</h1></div>
-            {menuItems?.length > 0 && getMenuContent()}
-            <br/>
-            <Button variant="contained" 
-            onClick={()=> history.push('./cart') }
-            color="darkslategray" 
-            className={classes.button}>
-              View Cart
-            </Button>
+            {
+              menuItems?.length > 0 ? 
+              <>
+              {getMenuContent()}
+              <br/>
+              <Button variant="contained" 
+              onClick={()=> history.push('./cart') }
+              color="darkslategray" 
+              className={classes.button}>
+                View Cart
+              </Button>
+              </> :
+              <> Issue encountered while fetching the menu. Try again later</>
+          }
         </div>
 
 }

@@ -1,5 +1,7 @@
 import RestService from './Rest-Service';
 import Endpoints from '../constants/endpoint';
+import { push } from 'connected-react-router';
+
  const  MenuService ={
     async getMenuList() {
         let url = Endpoints.API+ Endpoints['URLS']["menugroupid"]+'/1';
@@ -22,8 +24,8 @@ import Endpoints from '../constants/endpoint';
         
         return await RestService.postData(url, payload)
         .then(response=>{
-            return response
-        });
+            return response;
+        }).catch(err=> err);
     }
 } 
 export default MenuService;

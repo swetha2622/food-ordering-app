@@ -230,7 +230,8 @@ const Checkout = ({cartItems, submitOrder}) => {
       "telephoneNumber": userData.phone,
       "city": userData.city,
       "zip": userData.zipcode,
-      "email": userData.email
+      "email": userData.email,
+      "status": 'ordered' 
     }
     submitOrder(request);
   }

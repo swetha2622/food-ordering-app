@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { asyncGetAllOrders } from "../../../../redux/actions/index";
+import { asyncGetAllOrders, asyncSumbitOrder } from "../../../../redux/actions/index";
+import AdminAccordion from './Accordion';
+
 const Admin = (props) => {
-  let history = useHistory();
-  if (props.user.token.length <= 0) {
-    history.push("/login");
-  }
   useEffect(() => {
     props.asyncGetAllOrders();
-  });
-  return <div>Admin Works</div>;
+  }, []);
+
+  return <div style={{minHeight: '85vh'}}>
+    <AdminAccordion orders={props.orders} asyncSumbitOrder={props.asyncSumbitOrder}/>
+  </div>;
 };
 const mapStateToProps = (state) => {
   return {
@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     asyncGetAllOrders: (payload) => dispatch(asyncGetAllOrders(payload)),
+    asyncSumbitOrder: payload => dispatch(asyncSumbitOrder(payload))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);

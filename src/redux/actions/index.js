@@ -78,6 +78,39 @@ export const asyncGetAllOrders = () => {
   return (dispatch) => {
     const getData = async () => {
       const data = await adminService.fetchAllOrders();
+    //   const data = [{
+    //     "customerDetailId":1,
+    //     "lastName": "Kondreddy",
+    //     "firstName": "Vamsis",
+    //     "telephoneNumber": 2,
+    //     "address": "123",
+    //     "orders": [
+    //         {
+    //             "orderName": "tomato Soup",
+    //             "orderQuantity": 2
+    //         },
+    //         {
+    //             "orderName": "chicken Soup",
+    //             "orderQuantity": 4
+    //         }
+    //     ]
+    // },{
+    //     "customerDetailId":1,
+    //     "lastName": "Kondreddy",
+    //     "firstName": "Vamsis",
+    //     "telephoneNumber": 2,
+    //     "address": "123",
+    //     "orders": [
+    //         {
+    //             "orderName": "tomato Soup",
+    //             "orderQuantity": 2
+    //         },
+    //         {
+    //             "orderName": "chicken Soup",
+    //             "orderQuantity": 4
+    //         }
+    //     ]
+    // }]
       dispatch(getAllOrdersSuccess(data));
     };
     getData();
@@ -88,10 +121,19 @@ export const asyncSumbitOrder = (payload) => {
   return (dispatch) => {
     dispatch(submitOrder(true));
     const postData = async () => {
-      await menuService.submitOrder(payload);
-      alert('Order has been placed succesfully.')
+      const res = await menuService.submitOrder(payload);
+      if(res.status !== 'error') {
+      if(payload.status === 'ordered') {
+        alert('Order has been placed succesfully.')
+      } else {
+        alert('Order has been updated succesfully.')
+      }
       dispatch(submitOrder(false));
       dispatch(push('/'));
+    } else {
+      alert('Order updating the order.')
+      dispatch(submitOrder(false));
+    }
     };
     postData();
   };

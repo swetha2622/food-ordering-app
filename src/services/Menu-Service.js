@@ -25,7 +25,11 @@ import { push } from 'connected-react-router';
         return await RestService.postData(url, payload)
         .then(response=>{
             return response;
-        }).catch(err=> err);
+        }).catch(err=> 
+            {
+                err.status = 'error';
+                return err;
+            });
     }
 } 
 export default MenuService;

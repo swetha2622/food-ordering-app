@@ -40,7 +40,7 @@ const AdminAccordion = ({orders, asyncSumbitOrder}) => {
     const submitOrder = (order) => {
       const request = {
         ...order,
-        status: 'pickup'  
+        status: 'completed'  
       }
       asyncSumbitOrder(request);
     }

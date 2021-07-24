@@ -6,7 +6,8 @@ const Endpoints = {
     fetch: "/fetch",
     authenticate: "/authenticate",
     orders: "/orders",
-    submitOrder: "/customerOrderDetails"
+    submitOrder: "/customerOrderDetails",
+    fetchallorders: "/orderDetails",
   },
 };
 export default Endpoints;

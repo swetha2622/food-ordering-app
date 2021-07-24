@@ -9,7 +9,9 @@ const Admin = (props) => {
   }, []);
 
   return <div style={{minHeight: '85vh'}}>
+    {props?.orders?.length > 0 ?
     <AdminAccordion orders={props.orders} asyncSumbitOrder={props.asyncSumbitOrder}/>
+    :<div style={{color:'white', fontSize: '28px'}}>No orders found</div>}
   </div>;
 };
 const mapStateToProps = (state) => {

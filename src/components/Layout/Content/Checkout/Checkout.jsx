@@ -231,7 +231,7 @@ const Checkout = ({cartItems, submitOrder}) => {
       "city": userData.city,
       "zip": userData.zipcode,
       "email": userData.email,
-      "status": 'ordered' 
+      "status": 'initial' 
     }
     submitOrder(request);
   }

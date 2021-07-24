@@ -40,6 +40,12 @@ console.log(action);
           cartItems: updatedCartItems
         };
       }
+      case ACTION_TYPES.SUBMIT_ORDER:
+        return {
+          ...state,
+          menuItems: [],
+          cartItems: []
+        };
       default:
         return state;
     }

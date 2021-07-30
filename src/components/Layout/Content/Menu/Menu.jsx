@@ -6,6 +6,7 @@ import {useHistory} from  'react-router-dom';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import {FcExpand} from 'react-icons/fc';
 import MenuItem from './MenuItem';
@@ -75,7 +76,9 @@ const Menu = (props) => {
 
     return <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
             <div><h1>Menu</h1></div>
-            {
+            {props.menuItemsLoading ? <>
+              <CircularProgress />
+            </> :
               menuItems?.length > 0 ? 
               <>
               {getMenuContent()}
@@ -95,6 +98,7 @@ const Menu = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    menuItemsLoading: state.reducer.menuItemsLoading,
     menuItems: state.reducer.menuItems
   };
 };

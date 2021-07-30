@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { asyncGetAllOrders, asyncSumbitOrder } from "../../../../redux/actions/index";
 import AdminAccordion from './Accordion';
 
 const Admin = (props) => {
+  let history = useHistory();
+
+  // if (!props.user.token || props.user.token.length <= 0 || !props.loggedIn) {
+  //   history.push("/login");
+  // }
+
   useEffect(() => {
     props.asyncGetAllOrders();
   }, []);

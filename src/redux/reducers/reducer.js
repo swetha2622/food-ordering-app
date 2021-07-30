@@ -10,13 +10,19 @@ console.log(action);
       case ACTION_TYPES.FETCH_MENU_DETAILS:
         return {
           ...state,
-          menuItemsLoading: true
+          menuItemsLoading: action.isLoading
         };
       case ACTION_TYPES.FETCH_MENU_DETAILS_IS_SUCCESS:
         return {
           ...state,
-          menuItemsLoading: false,
+          menuItemsLoading: action.isLoading,
           menuItems: action.payload
+        };
+        case ACTION_TYPES.FETCH_MENU_DETAILS_IS_FAILURE:
+        return {
+          ...state,
+          menuItemsLoading: action.isLoading,
+          menuItems: []
         };
       case ACTION_TYPES.UPDATE_CART:{
           const menuIndex = state.cartItems.findIndex(cartItem => cartItem.menu_id === action.payload.menu_id);

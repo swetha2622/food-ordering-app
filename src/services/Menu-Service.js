@@ -8,7 +8,11 @@ import Endpoints from '../constants/endpoint';
         return await RestService.getData(url)
         .then(response=>{
             return response
-        });
+        }).catch(err=> 
+            {
+                err.status = 'error';
+                return err;
+            });
     },
     async fetchAllItems() {
         let url = Endpoints.API+ Endpoints['URLS']["fetch"];
@@ -16,7 +20,11 @@ import Endpoints from '../constants/endpoint';
         return await RestService.getData(url)
         .then(response=>{
             return response
-        });
+        }).catch(err=> 
+            {
+                err.status = 'error';
+                return err;
+            });
     },
     async submitOrder(payload) {
         let url = Endpoints.API+ Endpoints['URLS']["submitOrder"];

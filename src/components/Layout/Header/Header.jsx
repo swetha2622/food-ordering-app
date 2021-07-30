@@ -5,6 +5,7 @@ import classes from './Header.module.css';
 import {FiShoppingCart} from 'react-icons/fi';
 import Profile from "./Profile";
 import common from '../Content/Content.module.css';
+import Logout from './Logout';
 const Header = props => {
     const {cartItems} = props;
     let totalItemsCount = 0;
@@ -21,6 +22,7 @@ const Header = props => {
                     <span className={classes['cart-badge']}>{totalItemsCount}</span>
                 </button>
                 <Profile  />
+                {/* <Logout /> */}
             </div>
         </div>
     </>

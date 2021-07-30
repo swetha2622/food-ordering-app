@@ -10,6 +10,13 @@ export const getMenuItems = (bool) => {
   };
 };
 
+export const getMenuItemsIsFailure = (bool) => {
+  return {
+    type: ACTION_TYPES.FETCH_MENU_DETAILS_IS_FAILURE,
+    isLoading: bool,
+  };
+};
+
 export const submitOrder = (bool) => {
   return {
     type: ACTION_TYPES.SUBMIT_ORDER,
@@ -50,8 +57,13 @@ export const asyncGetMenuItems = () => {
     dispatch(getMenuItems(true));
     const getData = async () => {
       const data = await menuService.fetchAllItems();
+      if(data.status !== 'error') {
       dispatch(getMenuItems(false));
       dispatch(getMenuItemsIsSuccess(data));
+      } else {
+        dispatch(getMenuItems(false));
+        // dispatch(getMenuItemsIsFailure(false));
+      }
     };
     getData();
   };
@@ -64,7 +76,7 @@ export const loginSuccess = (payload) => {
 };
 export const logoutSuccess = () => {
   return {
-    type: ACTION_TYPES.LOGIN_SUCCSS,
+    type: ACTION_TYPES.LOGOUT_USER,
   };
 };
 export const getAllOrdersSuccess = (payload) => {
@@ -78,39 +90,6 @@ export const asyncGetAllOrders = () => {
   return (dispatch) => {
     const getData = async () => {
       const data = await adminService.fetchAllOrders();
-    //   const data = [{
-    //     "customerDetailId":1,
-    //     "lastName": "Kondreddy",
-    //     "firstName": "Vamsis",
-    //     "telephoneNumber": 2,
-    //     "address": "123",
-    //     "orders": [
-    //         {
-    //             "orderName": "tomato Soup",
-    //             "orderQuantity": 2
-    //         },
-    //         {
-    //             "orderName": "chicken Soup",
-    //             "orderQuantity": 4
-    //         }
-    //     ]
-    // },{
-    //     "customerDetailId":1,
-    //     "lastName": "Kondreddy",
-    //     "firstName": "Vamsis",
-    //     "telephoneNumber": 2,
-    //     "address": "123",
-    //     "orders": [
-    //         {
-    //             "orderName": "tomato Soup",
-    //             "orderQuantity": 2
-    //         },
-    //         {
-    //             "orderName": "chicken Soup",
-    //             "orderQuantity": 4
-    //         }
-    //     ]
-    // }]
       dispatch(getAllOrdersSuccess(data));
     };
     getData();

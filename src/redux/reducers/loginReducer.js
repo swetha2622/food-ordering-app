@@ -1,3 +1,4 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
 import ACTION_TYPES from "../action_types";
 const user = {
   firstName: localStorage.getItem("firstName")
@@ -16,9 +17,20 @@ const initialState = {
 const loginReducer = (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
+    case LOCATION_CHANGE: {
+      console.log(action);
+      if(action.payload.location.pathname === '/') {
+        localStorage.clear();
+        return {
+          ...state,
+          loggedIn: false,
+        };
+      } else 
+      return state;
+    }
     case ACTION_TYPES.LOGIN_SUCCSS:
       let user = {
-        firstName: action.payload.lastName,
+        firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         token: action.payload.jwt,
       };
@@ -31,7 +43,7 @@ const loginReducer = (state = initialState, action) => {
         user: user,
         loggedIn: true,
       };
-    case ACTION_TYPES.LOGOUT_SUCCESS:
+    case ACTION_TYPES.LOGOUT_USER:
       localStorage.clear();
       return {
         ...state,

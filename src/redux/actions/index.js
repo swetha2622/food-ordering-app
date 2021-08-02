@@ -104,14 +104,15 @@ export const asyncSumbitOrder = (payload) => {
       if(res.status !== 'error') {
       if(payload.Status === 'initial') {
         alert('Order has been placed succesfully.')
+      dispatch(push('/'));
       } else {
         alert('Order has been updated succesfully.')
       }
       dispatch(submitOrder(false));
-      dispatch(push('/'));
     } else {
       alert('Order updating the order.')
       dispatch(submitOrder(false));
+      window.location.reload();
     }
     };
     postData();

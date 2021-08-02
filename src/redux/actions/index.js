@@ -10,6 +10,13 @@ export const getMenuItems = (bool) => {
   };
 };
 
+export const getAllOrders = (bool) => {
+  return {
+    type: ACTION_TYPES.GET_ALL_ORDERS,
+    isLoading: bool,
+  };
+};
+
 export const getMenuItemsIsFailure = (bool) => {
   return {
     type: ACTION_TYPES.FETCH_MENU_DETAILS_IS_FAILURE,
@@ -86,11 +93,20 @@ export const getAllOrdersSuccess = (payload) => {
   };
 };
 
+export const updateOrderIsSuccess = (payload) => {
+  return {
+    type: ACTION_TYPES.UPDATE_ORDER_SUCCESS,
+    payload,
+  };
+};
+
 export const asyncGetAllOrders = () => {
   return (dispatch) => {
+    dispatch(getAllOrders(true));
     const getData = async () => {
       const data = await adminService.fetchAllOrders();
       dispatch(getAllOrdersSuccess(data));
+      dispatch(getAllOrders(false));
     };
     getData();
   };
@@ -102,11 +118,12 @@ export const asyncSumbitOrder = (payload) => {
     const postData = async () => {
       const res = await menuService.submitOrder(payload);
       if(res.status !== 'error') {
-      if(payload.Status === 'initial') {
-        alert('Order has been placed succesfully.')
-      dispatch(push('/'));
+      if(payload.status === 'initial') {
+        alert('Order has been placed succesfully.');
+        dispatch(push('/'));
       } else {
         alert('Order has been updated succesfully.')
+        dispatch(updateOrderIsSuccess(true));
       }
       dispatch(submitOrder(false));
     } else {

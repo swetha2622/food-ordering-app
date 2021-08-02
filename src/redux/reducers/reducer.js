@@ -2,7 +2,8 @@ import ACTION_TYPES from '../action_types';
 const initialState = {
     menuItems: [],
     menuItemsLoading: true,
-    cartItems: []
+    cartItems: [],
+    submittedOrder: false
 }
 const reducer = (state = initialState, action) => {
 console.log(action);
@@ -50,7 +51,12 @@ console.log(action);
         return {
           ...state,
           menuItems: [],
-          cartItems: []
+          cartItems: [],
+        };
+      case ACTION_TYPES.UPDATE_ORDER_SUCCESS:
+        return {
+          ...state,
+          submittedOrderSuccess: action.payload
         };
       default:
         return state;

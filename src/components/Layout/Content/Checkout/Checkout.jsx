@@ -207,7 +207,7 @@ const Checkout = ({cartItems, submitOrder}) => {
       alert('Please verify your name on card ');
       validationErrors = true;
     }
-    else if(paymentData.zip === '' || paymentData.zip.length < 5 ) {
+    else if(paymentData.zipcode === '' || paymentData.zipcode.length < 5 ) {
       alert('Please verify your zip code');
       validationErrors = true;
     }
@@ -231,7 +231,7 @@ const Checkout = ({cartItems, submitOrder}) => {
       "city": userData.city,
       "zip": userData.zipcode,
       "email": userData.email,
-      "status": 'initial' 
+      "Status": 'initial' 
     }
     submitOrder(request);
   }

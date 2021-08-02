@@ -40,12 +40,12 @@ const AdminAccordion = ({orders, asyncSumbitOrder}) => {
     const submitOrder = (order) => {
       const request = {
         ...order,
-        status: 'completed'  
+        Status: 'completed'  
       }
       asyncSumbitOrder(request);
     }
-    return (<> Test
-        {orders.map((order,index ) => {
+    return (<> 
+        {orders?.map((order,index ) => {
                 return (
                 <Accordion key={`order+${index}`}>
                     <AccordionSummary
@@ -72,7 +72,7 @@ const AdminAccordion = ({orders, asyncSumbitOrder}) => {
                         </div>
                     </AccordionDetails>
                     { 
-                        order.orders.map((menuItem, index2) =>
+                        order?.orders?.map((menuItem, index2) =>
                       <AccordionDetails key={`menuItem+${index2}`}>
                         <div><span className={classes.subheading}>{menuItem.orderName?.toUpperCase()}</span></div>
                         <div><span className={classes.subheadingcontent}>{menuItem.orderQuantity}</span></div>

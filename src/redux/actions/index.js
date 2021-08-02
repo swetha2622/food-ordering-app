@@ -123,7 +123,7 @@ export const asyncSumbitOrder = (payload) => {
     const postData = async () => {
       const res = await menuService.submitOrder(payload);
       if(res.status !== 'error') {
-      if(payload.status === 'initial') {
+      if(payload.Status === 'initial') {
         alert('Order has been placed succesfully.')
       } else {
         alert('Order has been updated succesfully.')

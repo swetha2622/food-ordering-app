@@ -12,9 +12,10 @@ const Admin = (props) => {
   //   history.push("/login");
   // }
 
+  const submittedSuccess = props.submittedOrderSuccess;
   useEffect(() => {
     props.asyncGetAllOrders();
-  }, []);
+  }, [submittedSuccess]);
 
   return <div style={{minHeight: '85vh'}}>
     {props?.orders?.length > 0 ?
@@ -26,6 +27,8 @@ const mapStateToProps = (state) => {
   return {
     user: state.loginReducer.user,
     orders: state.adminReducer.orders,
+    submittedOrderSuccess: state.reducer.submittedOrderSuccess,
+    getAllOrdersLoading: state.adminReducer.getAllOrdersLoading
   };
 };
 

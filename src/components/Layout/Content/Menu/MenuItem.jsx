@@ -65,7 +65,7 @@ const MenuItem = ({menuItem, addToCart}) => {
             <CardContent>
                 <div className={classes.details}>
                     <div className={classes.media}>
-                        <img src={soup} alt='FoodImage' width='50' height='50'/>
+                        {/* <img src={soup} alt='FoodImage' width='50' height='50'/> */}
                     </div>
                     <div className={classes.content}>
                         <div className={classes.contentHead}>{menuItem.menu_name}</div>

@@ -27,7 +27,7 @@ const Login = (props) => {
     <div className={classes["container"]}>
       <div className={classes["content"]}>
         <h1>Please Log In</h1>
-        <form onSubmit={handleSubmit}>
+        <form >
           <label>
             <p>Username</p>
             <input type="text" onChange={(e) => setUserName(e.target.value)} />
@@ -40,7 +40,7 @@ const Login = (props) => {
             />
           </label>
           <div className={classes["margin-10"]}>
-            <button className={classes["btn-blue"]} type="submit">
+            <button className={classes["btn-blue"]} type="button" onClick={handleSubmit}>
               Submit
             </button>
           </div>

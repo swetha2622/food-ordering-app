@@ -9,6 +9,10 @@ const LoginService = {
         return await RestService.postData(url,data)
         .then(response=>{
             return response
+        }).catch(err=> 
+        {
+            err.status = 'error';
+            return err;
         });
     }
 

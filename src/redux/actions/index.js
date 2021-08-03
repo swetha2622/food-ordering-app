@@ -64,7 +64,7 @@ export const asyncGetMenuItems = () => {
     dispatch(getMenuItems(true));
     const getData = async () => {
       const data = await menuService.fetchAllItems();
-      if(data.status !== 'error') {
+      if(data.Status !== 'error') {
       dispatch(getMenuItems(false));
       dispatch(getMenuItemsIsSuccess(data));
       } else {
@@ -117,8 +117,8 @@ export const asyncSumbitOrder = (payload) => {
     dispatch(submitOrder(true));
     const postData = async () => {
       const res = await menuService.submitOrder(payload);
-      if(res.status !== 'error') {
-      if(payload.status === 'initial') {
+      if(res.Status !== 'error') {
+      if(payload.Status === 'initial') {
         alert('Order has been placed succesfully.');
         dispatch(push('/'));
       } else {

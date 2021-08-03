@@ -211,6 +211,10 @@ const Checkout = ({cartItems, submitOrder}) => {
       alert('Please verify your zip code');
       validationErrors = true;
     }
+    else if(cartItems.length <= 0) {
+      alert('Please add items in cart');
+      validationErrors = true;
+    }
     return validationErrors;
   }
 

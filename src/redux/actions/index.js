@@ -1,6 +1,7 @@
 import ACTION_TYPES from "../action_types";
 import menuService from "../../services/Menu-Service";
 import adminService from "../../services/Admin.Service";
+import userService from "../../services/User.Service";
 import { push } from 'connected-react-router';
 
 export const getMenuItems = (bool) => {
@@ -100,6 +101,28 @@ export const updateOrderIsSuccess = (payload) => {
   };
 };
 
+
+export const fetchOrderStatus = (bool) => {
+  return {
+    type: ACTION_TYPES.FETCH_ORDER_STATUS,
+    isLoading: bool,
+  };
+};
+
+export const fechOrderStatusSuccess = (payload) => {
+  return {
+    type: ACTION_TYPES.FETCH_ORDER_STATUS_SUCCESS,
+    payload,
+  };
+};
+
+export const fechOrderStatusFailure = (bool) => {
+  return {
+    type: ACTION_TYPES.FETCH_ORDER_STATUS_FAILURE,
+    isLoading: bool,
+  };
+};
+
 export const asyncGetAllOrders = () => {
   return (dispatch) => {
     dispatch(getAllOrders(true));
@@ -133,5 +156,21 @@ export const asyncSumbitOrder = (payload) => {
     }
     };
     postData();
+  };
+};
+
+export const asyncFetchOrderStatus = (emailId) => {
+  return (dispatch) => {
+    dispatch(fetchOrderStatus(true));
+    const getData = async () => {
+      const data = await userService.fetchOrderStatus(emailId);
+      if(data) {
+      dispatch(fechOrderStatusSuccess(data));
+      } else {
+        dispatch(fechOrderStatusFailure(false));
+      }
+      dispatch(fetchOrderStatus(false));
+    };
+    getData();
   };
 };

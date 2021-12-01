@@ -5,8 +5,10 @@ import classes from './Content.module.css';
 const Content = props => {
     let history = useHistory();
     return <>
-        <div className={classes['content']}>
+        <div className={classes['content-col']}>
             <button className={classes['order-button']} onClick={() =>history.push('/menu')}> Order now </button>
+<br/>
+            <button className={classes['order-button']} onClick={() =>history.push('/track')}> Track your Order </button>
         </div>
     </>
 }

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       color:'darkslategray'
     },
     contactDetails : {
-      fontFamily: 'serif',
+      // fontFamily: 'serif',
       display: "flex",
       alignItems: "center"
     },

@@ -14,6 +14,19 @@ const LoginService = {
             err.status = 'error';
             return err;
         });
+    },
+
+    async signup(data) {
+        let url = Endpoints.API+ Endpoints['URLS']["authenticate"];
+        
+        return await RestService.postData(url,data)
+        .then(response=>{
+            return response
+        }).catch(err=> 
+        {
+            err.status = 'error';
+            return err;
+        });
     }
 
 }

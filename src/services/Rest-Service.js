@@ -7,9 +7,10 @@ import React from 'react';
               'Content-Type': 'application/json',
             },
           })
-          .then(response=>response.json()),
-        //   .then(data=> data),
-    // getData: (url)=> fetch(url).then(response=>response.json()).then(data => data),
+          .then(response=>response.json())
+          .catch(error => {
+            console.error('Error:', error);
+          }),
     postData:(url,data) => fetch(url,{
             method: 'POST',
             headers: {
@@ -20,6 +21,9 @@ import React from 'react';
           .then(response=>{
               console.log('test');
               return response.json()
+          })
+          .catch(error => {
+            console.error('Error:', error);
           })
 }
 

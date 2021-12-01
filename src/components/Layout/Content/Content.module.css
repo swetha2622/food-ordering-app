@@ -5,6 +5,15 @@
     justify-content: center;
     padding-bottom: 50px;
 }
+
+.content-col {
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+}
 .order-button {
     color: darkslategray;
     background-color: #ffffff;
@@ -19,8 +28,7 @@
 .menu-content {
     justify-content: flex-start;
     flex-direction: column;
-    color: white
-;
+    color: white;
 }
 .row-container{
     display: flex;
@@ -53,6 +61,13 @@
 }
 
 .checkout-content > div > * {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: inherit;
     font-style: normal;
+}
+
+.track-content {
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    /* padding-top: 30px; */
 }

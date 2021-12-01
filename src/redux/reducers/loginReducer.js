@@ -7,6 +7,9 @@ const user = {
   lastName: localStorage.getItem("lastName")
     ? localStorage.getItem("lastName")
     : "",
+    userName: localStorage.getItem("userName")
+    ? localStorage.getItem("userName")
+    : "",
   token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
 };
 const initialState = {
@@ -32,11 +35,13 @@ const loginReducer = (state = initialState, action) => {
       let user = {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
+        userName: action.payload.userName,
         token: action.payload.jwt,
       };
 
       localStorage.setItem("firstName", action.payload.firstName);
       localStorage.setItem("lastName", action.payload.lastName);
+      localStorage.setItem("userName", action.payload.userName);
       localStorage.setItem("token", action.payload.jwt);
       return {
         ...state,

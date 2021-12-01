@@ -3,7 +3,10 @@ const initialState = {
     menuItems: [],
     menuItemsLoading: true,
     cartItems: [],
-    submittedOrder: false
+    submittedOrder: false,
+    orderStatusLoading: false,
+    orderStatus: {},
+    orderStatusError: false
 }
 const reducer = (state = initialState, action) => {
 console.log(action);
@@ -58,6 +61,22 @@ console.log(action);
           ...state,
           submittedOrderSuccess: action.payload
         };
+        case ACTION_TYPES.FETCH_ORDER_STATUS:
+        return {
+          ...state,
+          orderStatusLoading: action.isLoading
+        };
+        case ACTION_TYPES.FETCH_ORDER_STATUS_SUCCESS:
+          return {
+            ...state,
+            orderStatus: action.payload
+          };  
+          case ACTION_TYPES.FETCH_ORDER_STATUS_FAILURE:
+            return {
+              ...state,
+              orderStatus: {},
+              orderStatusError: true
+            };  
       default:
         return state;
     }

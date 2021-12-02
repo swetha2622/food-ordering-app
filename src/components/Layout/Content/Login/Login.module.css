@@ -24,3 +24,9 @@
 .margin-10{
     margin: 10px;
 }
+.label {
+    display: inline-block;
+    width: 120px;
+    text-align: right;
+    padding-right: 10px;
+}

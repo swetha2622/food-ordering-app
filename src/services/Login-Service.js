@@ -17,7 +17,7 @@ const LoginService = {
     },
 
     async signup(data) {
-        let url = Endpoints.API+ Endpoints['URLS']["authenticate"];
+        let url = Endpoints.API+ Endpoints['URLS']["signup"];
         
         return await RestService.postData(url,data)
         .then(response=>{

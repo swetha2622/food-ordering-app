@@ -1,11 +1,12 @@
 import ACTION_TYPES from '../action_types';
+
 const initialState = {
     menuItems: [],
     menuItemsLoading: true,
     cartItems: [],
     submittedOrder: false,
     orderStatusLoading: false,
-    orderStatus: {},
+    orderStatus: [],
     orderStatusError: false
 }
 const reducer = (state = initialState, action) => {
@@ -74,7 +75,7 @@ console.log(action);
           case ACTION_TYPES.FETCH_ORDER_STATUS_FAILURE:
             return {
               ...state,
-              orderStatus: {},
+              orderStatus: [],
               orderStatusError: true
             };  
       default:

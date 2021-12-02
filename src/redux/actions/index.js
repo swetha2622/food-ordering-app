@@ -65,7 +65,7 @@ export const asyncGetMenuItems = () => {
     dispatch(getMenuItems(true));
     const getData = async () => {
       const data = await menuService.fetchAllItems();
-      if(data.Status !== 'error') {
+      if(data && data.Status !== 'error') {
       dispatch(getMenuItems(false));
       dispatch(getMenuItemsIsSuccess(data));
       } else {
@@ -135,13 +135,17 @@ export const asyncGetAllOrders = () => {
   };
 };
 
-export const asyncSumbitOrder = (payload) => {
+export const asyncSumbitOrder = (payload, email) => {
   return (dispatch) => {
     dispatch(submitOrder(true));
     const postData = async () => {
       const res = await menuService.submitOrder(payload);
       if(res.Status !== 'error') {
-      if(payload.Status === 'initial') {
+        if(payload.Status === 'cancel') {
+          alert('Order has been cancelled succesfully.');
+          dispatch(asyncFetchOrderStatus(email))
+        }
+      else if(payload.Status === 'initial') {
         alert('Order has been placed succesfully.');
         dispatch(push('/'));
       } else {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -78,7 +78,7 @@ const OrderDetails = ({cartItems}) => {
 
   return details;
 }
-const UserDetailsForm = ({loggedIn, loggedInUser, setUserData}) => {
+const UserDetailsForm = ({loggedIn, user, setUserData}) => {
   const classes = useStyles();
   const [userData, setUser] = React.useState({
     firstName: '',
@@ -89,6 +89,16 @@ const UserDetailsForm = ({loggedIn, loggedInUser, setUserData}) => {
     phone: '',
     email: ''
   })
+
+  // useEffect(()=>{
+    // if(loggedIn) {
+    //   setUser({
+    //     firstName: user.firstName,
+    //     lastName: user.lastName,
+    //     email: user.userName
+    //   })
+    // }
+  // }, [loggedIn, user]);
 
   const handleDataChange = (key, evt) => {
     let userCopy = {...userData};
@@ -105,8 +115,8 @@ const UserDetailsForm = ({loggedIn, loggedInUser, setUserData}) => {
     <br/>
     {loggedIn && 
     <TextField label="First Name" variant="outlined" size="small" fullWidth 
-    value={loggedInUser.firstName} onChange={(evt)=> handleDataChange('firstName', evt)}/>
-    }
+    value={user.firstName} onChange={(evt)=> handleDataChange('firstName', evt)}/>
+}
     {!loggedIn && 
         <TextField label="First Name" variant="outlined" size="small" fullWidth 
         value={userData.firstName} onChange={(evt)=> handleDataChange('firstName', evt)}/>
@@ -114,12 +124,12 @@ const UserDetailsForm = ({loggedIn, loggedInUser, setUserData}) => {
     <br/><br/>
     {loggedIn && 
     <TextField label="Last Name" variant="outlined" size="small" fullWidth 
-    value={loggedInUser.lastName} onChange={(evt)=> handleDataChange('lastName', evt)}/>
-    }
+    value={user.lastName} onChange={(evt)=> handleDataChange('lastName', evt)}/>
+}
     {!loggedIn && 
         <TextField label="Last Name" variant="outlined" size="small" fullWidth 
         value={userData.lastName} onChange={(evt)=> handleDataChange('lastName', evt)}/>
-    }
+    } 
     <br/><br/>
     <TextField label="Address" variant="outlined" size="small" fullWidth
     value={userData.address} onChange={(evt)=> handleDataChange('address', evt)}/>
@@ -130,15 +140,14 @@ const UserDetailsForm = ({loggedIn, loggedInUser, setUserData}) => {
     <TextField label="Phone" variant="outlined" size="small" fullWidth
     value={userData.phone} onChange={(evt)=> handleDataChange('phone', evt)}/>
     <br/><br/>
-    {loggedIn && 
+     {loggedIn && 
     <TextField label="Email" variant="outlined" size="small" fullWidth
-    value={loggedInUser.userName} onChange={(evt)=> handleDataChange('email', evt)}/>
-   
+    value={user.userName} onChange={(evt)=> handleDataChange('email', evt)}/>  
     }
     {!loggedIn &&
     <TextField label="Email" variant="outlined" size="small" fullWidth
     value={userData.email} onChange={(evt)=> handleDataChange('email', evt)}/>
-  }
+  } 
     <br/><br/>
     <TextField label="Zip" variant="outlined" size="small" fullWidth
     value={userData.zipcode} onChange={(evt)=> handleDataChange('zipcode', evt)}/>
@@ -196,7 +205,7 @@ const PaymentDetails = ({submitOrder, setPaymentData}) => {
   </>
 }
 
-const Checkout = ({cartItems, submitOrder, loggedInUser, loggedIn}) => {
+const Checkout = ({cartItems, submitOrder, user, loggedIn}) => {
   const [userData, setUserData] = React.useState({});
   const [paymentData, setPaymentData] = React.useState({});
   const handleValidation = () => {
@@ -242,7 +251,7 @@ const Checkout = ({cartItems, submitOrder, loggedInUser, loggedIn}) => {
     const orders = cartItems.map(item=> {
       return {
         "orderQuantity": item.count,
-        "orderName": item.menu_name
+        "orderName": item.menu_name,
       }
     })
     const request = {
@@ -261,14 +270,14 @@ const Checkout = ({cartItems, submitOrder, loggedInUser, loggedIn}) => {
   }
     return (<div className={`${commonClass['content']} ${commonClass['checkout-content']}`} >
         <div><OrderDetails cartItems={cartItems}/></div>
-        <div><UserDetailsForm loggedIn={loggedIn} loggedInUserData={loggedInUser} setUserData={setUserData} /></div>
+        <div><UserDetailsForm loggedIn={loggedIn} user={user} setUserData={setUserData} /></div>
         <div><PaymentDetails submitOrder={submitOrderCreated} setPaymentData={setPaymentData}/></div>
         </div>)
     }
 
 const mapStateToProps = (state) => {
     return {
-      loggedInUser: state.loginReducer.user,
+      user: state.loginReducer.user,
       loggedIn: state.loginReducer.loggedIn,
       cartItems: state.reducer.cartItems
     };

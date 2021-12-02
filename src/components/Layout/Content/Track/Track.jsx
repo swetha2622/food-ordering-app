@@ -14,7 +14,7 @@ const Track = (props) => {
       ...order,
       Status: 'cancel'  
     }
-    props.sumbitOrder(request);
+    props.sumbitOrder(request, username);
   }
   const handleSubmit = () => {
     if(username !== '') {
@@ -45,21 +45,77 @@ const Track = (props) => {
           </div>
         </form>
         <br/>
-        {
-          Object.keys(props.orderStatus).length !== 0 &&
-          <div style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}}> 
-            <div>Order Number: {props.orderStatus.id}</div>  
-            <div>Order Status: {props.orderStatus.Status}</div>
-            <div>
-            <Button aria-label="delete" onClick={()=>deleteOrder(props.orderStatus)} variant="contained" size="small">
+        
+          <div style={{width: "80%", 
+          display: "flex", 
+          flexDirection: "column", 
+          // justifyContent: "space-evenly", 
+          // alignItems: "center",
+          backgroundColor: "white", 
+          color: "black"}}>
+            {
+              props.orderStatus.length > 0 && 
+              <div style={{
+                display: "flex", 
+                flexDirection: "row",
+                justifyContent: "center", 
+                alignItems: "center",
+                fontWeight: "bold "
+                }}> 
+                {
+                ['Order Id', 'Status', 'Items', 'Action']
+                .map(heading => 
+                  <div style={{ 
+                    display: "flex",
+                    flex: "1"}}>
+                      {heading}
+                  </div> 
+                  )
+                  }
+              </div>
+            }
+            
+            {
+          props.orderStatus.length !== 0 &&
+          props.orderStatus.map(orderStatus => {
+          return (
+          <div style={{
+            // width: "100%", 
+          display: "flex", 
+          flexDirection: "row",
+          justifyContent: "center", 
+          alignItems: "center",
+          }}> 
+            <div style={{ 
+          display: "flex",
+          textAlign: "center",
+          flex: "1"}}>
+            {orderStatus.id}</div>  
+            <div style={{ 
+          display: "flex",
+          flex: "1"}}>
+            {orderStatus.Status}</div>
+          <div style={{ 
+          display: "flex",
+          flex: "1"}}>
+              <ul>{orderStatus.orders.map(order => <li>{order.orderName}</li>)}</ul>
+          </div>
+            <div style={{ 
+          display: "flex",
+          flex: "1"}}>
+              {orderStatus.Status === 'initial' &&
+            <Button aria-label="delete" onClick={()=>deleteOrder(orderStatus)} variant="contained" size="small">
               Cancel Order 
               <DeleteIcon fontSize="small"  color="secondary"></DeleteIcon>
             </Button>
-            </div>
+          }
           </div>
+            </div>)
+      })  
         }
         </div>
-        )
+        </div>
+    )   
     }
 
 const mapStateToProps = (state) => {
@@ -71,7 +127,7 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = (dispatch) => {
     return {
       fetchOrderStatus: (request) => dispatch(asyncFetchOrderStatus(request)),
-      sumbitOrder: payload => dispatch(asyncSumbitOrder(payload))
+      sumbitOrder: (payload, email) => dispatch(asyncSumbitOrder(payload, email))
     };
   };
   

@@ -88,7 +88,7 @@ const Login = (props) => {
     if(handleSignupValidation()) {
       const resp = await loginService.signup({
         userName: signupUsername,
-        activity: 2,
+        activity: 0,
         email: signupEmail,
         firstname: signupFirstname,
         lastname:signupLastname,

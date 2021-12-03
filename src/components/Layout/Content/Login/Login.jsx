@@ -58,7 +58,7 @@ const Login = (props) => {
     evt.preventDefault();
     if(handleValidation()) {
       const resp = await loginService.authenticate({
-        userName: username,
+        email: username,
         password: password,
         role: role
       });
@@ -67,7 +67,7 @@ const Login = (props) => {
         resp.payload.password = password;
         
         props.loginSuccess(resp.payload);
-        if(role === 'admin') {
+        if(resp.payload.roles === 'admin') {
          history.push("/admin");
         } else {
           history.push("/menu");
@@ -123,7 +123,7 @@ const Login = (props) => {
 
         <TabPanel value={value} index={0}>
         <form >
-          <label className={classes.label}for="name">Username </label>
+          <label className={classes.label}for="name">Email </label>
             <input 
             name="name"
             type="text" 

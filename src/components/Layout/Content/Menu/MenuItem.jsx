@@ -75,7 +75,7 @@ const MenuItem = ({menuItem, addToCart}) => {
                         <div>${menuItem.price}</div>
                     </div>
                     <div className={classes.actions}>
-                        <div>Available: {menuItem.totalQuantity - menuItem.availableQuantity}</div>
+                        <div>Available: {menuItem.availableQuantity}</div>
                     </div>
                     <div className={classes.actions}>    
                         <div>

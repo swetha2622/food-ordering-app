@@ -58,7 +58,7 @@ const Login = (props) => {
     evt.preventDefault();
     if(handleValidation()) {
       const resp = await loginService.authenticate({
-        email: username,
+        userName: username,
         password: password,
         role: role
       });
@@ -88,7 +88,7 @@ const Login = (props) => {
     if(handleSignupValidation()) {
       const resp = await loginService.signup({
         userName: signupUsername,
-        activity: 2,
+        activity: 0,
         email: signupEmail,
         firstname: signupFirstname,
         lastname:signupLastname,

@@ -58,9 +58,9 @@ const Login = (props) => {
     evt.preventDefault();
     if(handleValidation()) {
       const resp = await loginService.authenticate({
-        email: username,
-        password: password,
-        role: role
+        userName: username,
+        password: password
+        // role: role
       });
       if (resp && resp.status === "Successful") {
         resp.payload.userName = username;

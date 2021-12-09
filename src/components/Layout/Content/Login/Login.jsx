@@ -62,12 +62,12 @@ const Login = (props) => {
         password: password
         // role: role
       });
-      if (resp && resp.status === "Successful") {
-        resp.payload.userName = username;
-        resp.payload.password = password;
+      if (resp) {
+        resp.userName = username;
+        resp.password = password;
         
-        props.loginSuccess(resp.payload);
-        if(resp.payload.roles === 'admin') {
+        props.loginSuccess(resp);
+        if(resp.roles === 'admin') {
          history.push("/admin");
         } else {
           history.push("/menu");
@@ -95,7 +95,7 @@ const Login = (props) => {
         passwords: signupPassword,
         roles: 'customer'
       });
-      if (resp && resp.status === "Successful") {
+      if (resp) {
         history.push("/login");
       } else if (resp && (resp.status === "403" || resp.status === 'error') ){
         setSignUpError(true);
@@ -204,7 +204,7 @@ const Login = (props) => {
           <label className={classes.label} for="reenter-password">Reenter Password </label>
             <input
             name="renter-password"
-            type="renter-password"
+            type="password"
             onChange={(e) => setReenterPassword(e.target.value)}
             value={renterpassword}
             />

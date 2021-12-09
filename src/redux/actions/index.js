@@ -143,7 +143,9 @@ export const asyncSumbitOrder = (payload, email) => {
       if(res.Status !== 'error') {
         if(payload.Status === 'cancel') {
           alert('Order has been cancelled succesfully.');
+         if(email){
           dispatch(asyncFetchOrderStatus(email))
+         }
         }
       else if(payload.Status === 'initial') {
         alert('Order has been placed succesfully.');

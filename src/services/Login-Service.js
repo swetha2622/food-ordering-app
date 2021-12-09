@@ -21,9 +21,11 @@ const LoginService = {
         
         return await RestService.postData(url,data)
         .then(response=>{
+            alert('SignUp had succesfully.');
             return response
         }).catch(err=> 
         {
+            alert('SignUp is unsuccesfully.');
             err.status = 'error';
             return err;
         });

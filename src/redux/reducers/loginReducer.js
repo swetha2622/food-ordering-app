@@ -10,6 +10,9 @@ const user = {
     userName: localStorage.getItem("userName")
     ? localStorage.getItem("userName")
     : "",
+    email: localStorage.getItem("email")
+    ? localStorage.getItem("email")
+    : "",
   token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
 };
 const initialState = {
@@ -36,12 +39,14 @@ const loginReducer = (state = initialState, action) => {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         userName: action.payload.userName,
+        email: action.payload.email,
         token: action.payload.jwt,
       };
 
       localStorage.setItem("firstName", action.payload.firstName);
       localStorage.setItem("lastName", action.payload.lastName);
       localStorage.setItem("userName", action.payload.userName);
+      localStorage.setItem("email", action.payload.email);
       localStorage.setItem("token", action.payload.jwt);
       return {
         ...state,

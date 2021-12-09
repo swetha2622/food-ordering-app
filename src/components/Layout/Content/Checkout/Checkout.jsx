@@ -81,13 +81,13 @@ const OrderDetails = ({cartItems}) => {
 const UserDetailsForm = ({loggedIn, user, setUserData}) => {
   const classes = useStyles();
   const [userData, setUser] = React.useState({
-    firstName: '',
-    lastName: '',
+    firstName: loggedIn && user.firstName ? user.firstName: '',
+    lastName: loggedIn && user.lastName ? user.lastName: '',
     address: '',
     city: '',
     zipcode: '',
     phone: '',
-    email: ''
+    email: loggedIn && user.email ? user.email: '',
   })
 
   // useEffect(()=>{

@@ -48,10 +48,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MenuItem = ({menuItem, addToCart}) => {
+const MenuItem = ({menuItem, addToCart, totalIngredients, setTotalIngredients}) => {
   const classes = useStyles();
   const [count, setCount] = React.useState(1);
   const updateItemCount = (action, event) => {
+    console.log(totalIngredients);
         if(action === 'increment') {
             setCount(Number(count)+1);
         } else if(action === 'decrement') {
@@ -60,6 +61,34 @@ const MenuItem = ({menuItem, addToCart}) => {
             setCount(event.target.value);
         }
     }
+    const onAddToCart = (menuItem, count) => {
+      let tempIngredients = {};
+      let available = true;
+        menuItem.ingredients.forEach(ingredients=> {
+          let reqQuantity = ingredients.totalQuantity * count;
+          available = available && reqQuantity <= totalIngredients[ingredients.ingredientID];
+          tempIngredients[ingredients.ingredientID] = ingredients.availableQuantity - reqQuantity;
+        })
+        if(available) {
+          console.log(tempIngredients);
+          addToCart(menuItem, count);
+
+          setTotalIngredients(tempIngredients);
+        } else {
+          alert('Not available to add to cart');
+        }
+    }
+    const getAvailableQuantity = () => {
+      const avail = menuItem.ingredients.map(ingredient => {
+        if(ingredient.remainingQuantity)
+        return ingredient.remainingQuantity/ingredient.totalQuantity;
+        else 
+        return ingredient.availableQuantity/ingredient.totalQuantity;
+      })
+      const quantity = Math.min(...avail);
+      return quantity;
+    }
+
       return (
         <Card className={classes.root}>
             <CardContent>
@@ -75,7 +104,7 @@ const MenuItem = ({menuItem, addToCart}) => {
                         <div>${menuItem.price}</div>
                     </div>
                     <div className={classes.actions}>
-                        <div>Available: {menuItem.availableQuantity}</div>
+                        <div>Available: {getAvailableQuantity()}</div>
                     </div>
                     <div className={classes.actions}>    
                         <div>
@@ -86,10 +115,15 @@ const MenuItem = ({menuItem, addToCart}) => {
                         <div>
                             <button 
                             className={`${classes.button}`}
-                            onClick={()=> addToCart(menuItem, count)}
+                            onClick={()=> onAddToCart(menuItem, count)}
                             >Add to Cart</button>
                         </div>
                     </div>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'left', fontSize: '8px'}}>
+                  {menuItem.ingredients.map(item => <span>
+                    {item.ingredientName} - {item.totalQuantity}  &nbsp;
+                  </span>)}
                 </div>
             </CardContent>
         </Card>

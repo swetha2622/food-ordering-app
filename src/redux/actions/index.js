@@ -64,7 +64,57 @@ export const asyncGetMenuItems = () => {
   return (dispatch) => {
     dispatch(getMenuItems(true));
     const getData = async () => {
-      const data = await menuService.fetchAllItems();
+      // const data = await menuService.fetchAllItems();
+      const data = [
+        {
+            "ingredients": [
+                {
+                    "ingredientID": 1,
+                    "ingredientName": "Tomato",
+                    "availableQuantity": 1000,
+                    "totalQuantity": 100
+                },
+                {
+                    "ingredientID": 2,
+                    "ingredientName": "Onion",
+                    "availableQuantity": 10000,
+                    "totalQuantity": 200
+                }
+            ],
+            "menu_id": 1,
+            "menu_name": "Tomato Soup",
+            "price": 3.99,
+            "menu_group_id": 1,
+            "menu_group_name": "Soups",
+            "description": "Delicious soup made from fresh tomatoes.",
+            "totalQuantity": 50,
+            "availableQuantity": 42
+        },
+        {
+          "ingredients": [
+            {
+                "ingredientID": 1,
+                "ingredientName": "Tomato",
+                "availableQuantity": 1000,
+                "totalQuantity": 100
+            },
+            {
+                "ingredientID": 2,
+                "ingredientName": "Onion",
+                "availableQuantity": 10000,
+                "totalQuantity": 200
+            }
+        ],
+            "menu_id": 2,
+            "menu_name": "Rasam",
+            "price": 3.99,
+            "menu_group_id": 1,
+            "menu_group_name": "Soups",
+            "description": "Spicy vegetable soup with tamarind sauce.",
+            "totalQuantity": 50,
+            "availableQuantity": 44
+        }
+    ];
       if(data && data.Status !== 'error') {
       dispatch(getMenuItems(false));
       dispatch(getMenuItemsIsSuccess(data));

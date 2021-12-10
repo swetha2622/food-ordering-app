@@ -11,8 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import {FcExpand} from 'react-icons/fc';
 import MenuItem from './MenuItem';
 import Button from '@material-ui/core/Button';
-import {asyncGetMenuItems} from '../../../../redux/actions';
+import {asyncGetMenuItems, getMenuItemsIsSuccess} from '../../../../redux/actions';
 import '../../../../App.css';
+import { useState } from 'react';
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
@@ -39,12 +40,49 @@ const groupMenuItems = (items, key) => items.length > 0 && items?.reduce(
 
 const Menu = (props) => {
   const history = useHistory();
-  const {menuItems} = props
+  const {menuItems, cartItems, loggedIn} = props
+  const [ totalIngredients, setTotalIngredients ] = useState({});
+
   useEffect(() => {
       props.fetchAllItems();
   },[]);
 
+  useEffect(()=> {
+    let tempIngredients = {};
+    menuItems && menuItems.forEach(menuItem => {
+      menuItem.ingredients.forEach(ingredients=> {
+        tempIngredients[ingredients.ingredientID] = ingredients.availableQuantity
+      })
+    })
+    setTotalIngredients(tempIngredients);
+  }, [menuItems, setTotalIngredients])
+
+  useEffect(()=> {
+    if(cartItems.length> 0) updateMenuIngredientsFunc()
+  }, [cartItems])
+
     const classes = useStyles();
+
+    const updateMenuIngredientsFunc = () => {
+      console.log("totalIngredients", totalIngredients);
+      const tempMenuItems = cartItems.map(menuItem => {
+          let tempIngredients = menuItem.ingredients.map(ingredient => {
+            // ingredient.availableQuantity -= ingredient.totalQuantity * menuItem.count;
+            ingredient.remainingQuantity = ingredient.availableQuantity - (ingredient.totalQuantity * menuItem.count);
+            
+            return ingredient;
+          })
+          return {...menuItem, ingredients: tempIngredients};
+        })
+
+      const tempMenuItems2 = [...menuItems];
+      console.log(tempMenuItems2.map((item, i) => Object.assign({}, item, tempMenuItems[i])))
+      props.updateMenuIngredients(tempMenuItems2.map((item, i) => Object.assign({}, item, tempMenuItems[i])));
+    }
+
+    const setTotalIngredientsFunc = (totalIngredients) => {
+      setTotalIngredients(totalIngredients);
+    }
 
     const getMenuContent = () => {
       const groupedMenuData = groupMenuItems(menuItems, 'menu_group_id');
@@ -64,7 +102,12 @@ const Menu = (props) => {
                     { 
                     menugroup.map((menuItem, index2) =>
                       <AccordionDetails key={`menuItem+${index2}`}>
-                        <MenuItem menuItem={menuItem}/>
+                        <MenuItem 
+                          menuItem={menuItem} 
+                          totalIngredients={totalIngredients} 
+                          setTotalIngredients={setTotalIngredientsFunc}
+                          // updateMenuIngredients={updateMenuIngredientsFunc}
+                        />
                       </AccordionDetails>)
                     }
               </Accordion>)
@@ -75,6 +118,10 @@ const Menu = (props) => {
     }
 
     return <div className={`${commonClass['content']} ${commonClass['menu-content']}`} >
+
+      {  loggedIn && 
+         <button className={classes['order-button']} onClick={() =>history.push('/track')}> Track Order </button>
+      }
             <div><h1>Menu</h1></div>
             {props.menuItemsLoading ? <>
               <CircularProgress />
@@ -98,14 +145,17 @@ const Menu = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    loggedIn: state.loginReducer.loggedIn,
     menuItemsLoading: state.reducer.menuItemsLoading,
-    menuItems: state.reducer.menuItems
+    menuItems: state.reducer.menuItems,
+    cartItems: state.reducer.cartItems
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllItems: () => dispatch(asyncGetMenuItems())
+    fetchAllItems: () => dispatch(asyncGetMenuItems()),
+    updateMenuIngredients: (menuItems) => dispatch(getMenuItemsIsSuccess(menuItems))
   };
 };
 

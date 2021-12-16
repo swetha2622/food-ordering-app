@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {AiOutlinePlus, AiOutlineMinus} from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,28 +18,31 @@ const useStyles = makeStyles((theme) => ({
     plusbutton: {
         'border-radius': '0px 10px 10px 0px'
     },
-    input :{
+    input: {
         maxWidth: '25px'
     }
-  }));
+}));
 
 const AmountButton = ({
     count,
-    updateItemCount
+    updateItemCount,
+    remainingcount
 }) => {
     const classes = useStyles();
     return (<div className={classes.root}>
-            <button className={`${classes.minusbutton} ${classes.button}`} 
+        <button className={`${classes.minusbutton} ${classes.button}`}
             onClick={() => updateItemCount('decrement')}>
-                <AiOutlineMinus/>
-            </button>
-            <input type='text' value={count}
-            className={classes.input} 
-            onChange={(event)=> updateItemCount('', event)}/>
-            <button className={`${classes.plusbutton} ${classes.button}`} 
-            onClick={() => updateItemCount('increment')}>
-                <AiOutlinePlus />
-            </button>
+            <AiOutlineMinus />
+        </button>
+        <input type='text' value={count} disabled
+            className={classes.input}
+            onChange={(event) => updateItemCount('', event)} />
+        <button className={`${classes.plusbutton} ${classes.button}`}
+            onClick={() => updateItemCount('increment')}
+            disabled={0 === remainingcount}
+        >
+            <AiOutlinePlus />
+        </button>
     </div>)
 }
 

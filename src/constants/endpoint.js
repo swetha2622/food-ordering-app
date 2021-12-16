@@ -10,7 +10,9 @@ const Endpoints = {
     submitOrder: "/customerOrderDetails",
     fetchallorders: "/orderDetails",
     fetchOrderStatus: "/singleOrderDetails",
-    signup: "/signup"
+    signup: "/signup",
+    quantity:"/ingdetails",
+    quantityUodate: "/quantityUpdate"
   },
 };
 export default Endpoints;

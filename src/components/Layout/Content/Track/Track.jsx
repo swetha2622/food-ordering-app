@@ -103,7 +103,7 @@ const Track = (props) => {
             <div style={{ 
           display: "flex",
           flex: "1"}}>
-              {orderStatus.Status === 'initial' &&
+              {props.loggedIn && orderStatus.Status === 'initial' &&
             <Button aria-label="delete" onClick={()=>deleteOrder(orderStatus)} variant="contained" size="small">
               Cancel Order 
               <DeleteIcon fontSize="small"  color="secondary"></DeleteIcon>
@@ -120,6 +120,7 @@ const Track = (props) => {
 
 const mapStateToProps = (state) => {
     return {
+      loggedIn: state.loginReducer.loggedIn,
       orderStatus: state.reducer.orderStatus
     };
   };

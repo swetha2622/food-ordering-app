@@ -54,7 +54,7 @@ const AdminAccordion = ({orders, asyncSumbitOrder}) => {
     let [menus, setMenus] = React.useState([]);
 
     const getAvailableMenus = async (evt) => {
-        const resp = await MenuService.fetchAllItems();
+        const resp = await MenuService.fetchAvailableQuantity();
         if (resp) {
           menus = resp;
           setMenus(resp);
@@ -155,8 +155,9 @@ function SimpleDialog(props) {
           <DialogContentText>
               <List sx={{ pt: 0 }}>
                 {menus.map((menu) => (
-                  <ListItem button key={menu.menu_name}>
-                    <ListItemText primary={menu.menu_name} />
+                  console.log('menu'+ menu),
+                  <ListItem button key={menu.ingredientName}>
+                    <ListItemText primary={menu.ingredientName} />
                     <Chip label={menu.availableQuantity} />
                   </ListItem>
                 ))}

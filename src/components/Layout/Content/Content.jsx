@@ -10,7 +10,7 @@ const Content = props => {
 <br/>
             <button className={classes['order-button']} onClick={() =>history.push('/login')}> Login </button>
             <br/>
-            <button className={classes['order-button']} onClick={() =>history.push('/track')}> Track Order </button>
+            {/* <button className={classes['order-button']} onClick={() =>history.push('/track')}> Track Order </button> */}
        
         </div>
     </>

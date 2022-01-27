@@ -64,7 +64,61 @@ export const asyncGetMenuItems = () => {
   return (dispatch) => {
     dispatch(getMenuItems(true));
     const getData = async () => {
-      const data = await menuService.fetchAllItems();
+      // const data = await menuService.fetchAllItems();
+      const data = [
+        {
+          "ingredients": [
+              {
+                  "ingredientID": 1,
+                  "ingredientName": "Tomato",
+                  "availableQuantity": 999,
+                  "totalQuantity": 100,
+                  "required_Quantity": 10
+              },
+              {
+                  "ingredientID": 2,
+                  "ingredientName": "Onion",
+                  "availableQuantity": 999,
+                  "totalQuantity": 5,
+                  "required_Quantity": 10
+              }
+          ],
+          "menu_id": 1,
+          "menu_name": "Tomato Soup",
+          "price": 3.99,
+          "menu_group_id": 1,
+          "menu_group_name": "Soups",
+          "description": "Delicious soup made from fresh tomatoes.",
+          "totalQuantity": 50,
+          "availableQuantity": 30
+      },
+      {
+          "ingredients": [
+              {
+                  "ingredientID": 1,
+                  "ingredientName": "Tomato",
+                  "availableQuantity": 999,
+                  "totalQuantity": 100,
+                  "required_Quantity": 10
+              },
+              {
+                  "ingredientID": 3,
+                  "ingredientName": "Tamarind",
+                  "availableQuantity": 1000,
+                  "totalQuantity": 5,
+                  "required_Quantity": 5
+              }
+          ],
+          "menu_id": 2,
+          "menu_name": "Rasam",
+          "price": 3.99,
+          "menu_group_id": 1,
+          "menu_group_name": "Soups",
+          "description": "Spicy vegetable soup with tamarind sauce.",
+          "totalQuantity": 50,
+          "availableQuantity": 36
+      }
+    ];
       if(data && data.Status !== 'error') {
       dispatch(getMenuItems(false));
       dispatch(getMenuItemsIsSuccess(data));

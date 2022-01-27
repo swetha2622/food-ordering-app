@@ -57,8 +57,9 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
         setCount(Number(count) + 1);
         if (menuItem.ingredients.length > 0) {
           menuItem.ingredients.map((ingreItem) => {
-            console.log('data:::',menuIngredientItems[ingreItem.ingredientName.trim()].required_Quantity)
-            menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity - 1) : 0
+            let item = ingreItem.ingredientName.trim();
+            console.log('data:::',menuIngredientItems, ingreItem, menuItem)
+            menuIngredientItems[item].availableQuantity = (menuIngredientItems[item] && menuIngredientItems[item].availableQuantity && menuIngredientItems[item].availableQuantity) ? (menuIngredientItems[item].availableQuantity - ingreItem['required_Quantity']) : 0
             // if(menuItem.menu_id == 2 && ingreItem.ingredientID == 3){
             //   console.log("totalQuasmtity::::",ingreItem.totalQuantity)
             //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity - ingreItem.totalQuantity ) : 0
@@ -73,11 +74,14 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
         setCount(Number(count) - 1);
         if (menuItem.ingredients.length > 0) {
           menuItem.ingredients.map((ingreItem) => {
-            menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + 1) : (0 + 1)
+            let item = ingreItem.ingredientName.trim();
+            menuIngredientItems[item].availableQuantity = 
+            (menuIngredientItems[item] &&
+             menuIngredientItems[item].availableQuantity) ? (menuIngredientItems[item].availableQuantity + ingreItem['required_Quantity']) : (0 + ingreItem['required_Quantity'])
             // if(menuItem.menu_id == 2 && ingreItem.ingredientID == 3){
-            //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity  ) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + ingreItem.totalQuantity) : (0 + ingreItem.totalQuantity )
+            //   menuIngredientItems[item].availableQuantity = (menuIngredientItems[item] && menuIngredientItems[item].availableQuantity  ) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + ingreItem.totalQuantity) : (0 + ingreItem.totalQuantity )
             // } else {
-            //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + ingreItem.totalQuantity) : (0 + 1)
+            //   menuIngredientItems[item].availableQuantity = (menuIngredientItems[item] && menuIngredientItems[item].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + ingreItem.totalQuantity) : (0 + 1)
             // }
           })
         }
@@ -118,9 +122,9 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
           <div className={classes.actions}>
             <div>${menuItem.price}</div>
           </div>
-          <div className={classes.actions}>
+          {/* <div className={classes.actions}>
             <div>Available: {returnavailableQuantity(menuItem)}</div>
-          </div>
+          </div> */}
           <div className={classes.actions}>
             <div>
               <AmountButton

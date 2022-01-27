@@ -13,7 +13,7 @@ import MenuItem from './MenuItem';
 import Button from '@material-ui/core/Button';
 import { asyncGetMenuItems, getMenuItemsIsSuccess } from '../../../../redux/actions';
 import '../../../../App.css';
-import { useState } from 'react';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',

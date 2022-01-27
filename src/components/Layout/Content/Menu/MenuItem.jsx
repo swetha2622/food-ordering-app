@@ -57,7 +57,14 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
         setCount(Number(count) + 1);
         if (menuItem.ingredients.length > 0) {
           menuItem.ingredients.map((ingreItem) => {
+            console.log('data:::',menuIngredientItems[ingreItem.ingredientName.trim()].required_Quantity)
             menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity - 1) : 0
+            // if(menuItem.menu_id == 2 && ingreItem.ingredientID == 3){
+            //   console.log("totalQuasmtity::::",ingreItem.totalQuantity)
+            //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity - ingreItem.totalQuantity ) : 0
+            // } else {
+            //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity - ingreItem.totalQuantity) : 0
+            // }
           })
         }
       }
@@ -67,6 +74,11 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
         if (menuItem.ingredients.length > 0) {
           menuItem.ingredients.map((ingreItem) => {
             menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + 1) : (0 + 1)
+            // if(menuItem.menu_id == 2 && ingreItem.ingredientID == 3){
+            //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity  ) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + ingreItem.totalQuantity) : (0 + ingreItem.totalQuantity )
+            // } else {
+            //   menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity = (menuIngredientItems[ingreItem.ingredientName.trim()] && menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity) ? (menuIngredientItems[ingreItem.ingredientName.trim()].availableQuantity + ingreItem.totalQuantity) : (0 + 1)
+            // }
           })
         }
       }

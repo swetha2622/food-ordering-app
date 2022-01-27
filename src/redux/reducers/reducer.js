@@ -7,7 +7,7 @@ const initialState = {
         {
           "ingredientID": 1,
           "ingredientName": "Tomato",
-          "availableQuantity": 10,
+          "availableQuantity": 1000,
           "totalQuantity": 100
         },
         {
@@ -31,14 +31,14 @@ const initialState = {
         {
           "ingredientID": 1,
           "ingredientName": "Tomato",
-          "availableQuantity": 10,
-          "totalQuantity": 100
+          "availableQuantity": 1000,
+          "requriedQuantity": 5
         },
         {
           "ingredientID": 3,
           "ingredientName": "Tamarind",
           "availableQuantity": 1000,
-          "totalQuantity": 50
+          "totalQuantity": 10
         }
       ],
       "menu_id": 2,
@@ -151,7 +151,7 @@ const initialState = {
         {
           "ingredientID": 1,
           "ingredientName": "Tomato",
-          "availableQuantity": 10,
+          "availableQuantity": 1000,
           "totalQuantity": 100
         }
       ],
@@ -207,8 +207,8 @@ const reducer = (state = initialState, action) => {
     case ACTION_TYPES.FETCH_MENU_DETAILS_IS_SUCCESS:
       return {
         ...state,
-        menuItemsLoading: action.isLoading,
-        // menuItems: action.payload
+        // menuItemsLoading: action.isLoading,
+         menuItems: action.payload
       };
     case ACTION_TYPES.FETCH_MENU_DETAILS_IS_FAILURE:
       return {

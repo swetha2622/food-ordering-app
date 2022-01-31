@@ -194,7 +194,7 @@ const initialState = {
         {
             "ingredientID": 1,
             "ingredientName": "Tomato",
-            "availableQuantity": 99,
+            "availableQuantity": 999,
             "totalQuantity": 100,
             "required_Quantity": 10
         },
@@ -220,7 +220,7 @@ const initialState = {
         {
             "ingredientID": 1,
             "ingredientName": "Tomato",
-            "availableQuantity": 99,
+            "availableQuantity": 999,
             "totalQuantity": 100,
             "required_Quantity": 10
         },

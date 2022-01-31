@@ -96,7 +96,9 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
   const returnavailableQuantity = (data) => {
     var availableQuantityNo = [];
     (data.ingredients && data.ingredients.length > 0 && Object.keys(menuIngredientItems).length > 0) && data.ingredients.map((menuinneritem) => {
-      availableQuantityNo.push((menuIngredientItems[menuinneritem.ingredientName] && menuIngredientItems[menuinneritem.ingredientName].availableQuantity) ? menuIngredientItems[menuinneritem.ingredientName].availableQuantity : 0)
+      availableQuantityNo.push((menuIngredientItems[menuinneritem.ingredientName] 
+        && menuIngredientItems[menuinneritem.ingredientName].availableQuantity) ?
+        Math.floor(menuIngredientItems[menuinneritem.ingredientName].availableQuantity/menuinneritem['required_Quantity']) : 0)
     });
     return Math.min(...availableQuantityNo);
   }
@@ -122,9 +124,9 @@ const MenuItem = ({ menuItem, addToCart, menuIngredientItems, setMenuIngredientI
           <div className={classes.actions}>
             <div>${menuItem.price}</div>
           </div>
-          {/* <div className={classes.actions}>
+          <div className={classes.actions}>
             <div>Available: {returnavailableQuantity(menuItem)}</div>
-          </div> */}
+          </div>
           <div className={classes.actions}>
             <div>
               <AmountButton

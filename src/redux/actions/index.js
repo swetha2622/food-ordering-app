@@ -71,7 +71,7 @@ export const asyncGetMenuItems = () => {
               {
                   "ingredientID": 1,
                   "ingredientName": "Tomato",
-                  "availableQuantity": 99,
+                  "availableQuantity": 999,
                   "totalQuantity": 100,
                   "required_Quantity": 10
               },
@@ -97,7 +97,7 @@ export const asyncGetMenuItems = () => {
               {
                   "ingredientID": 1,
                   "ingredientName": "Tomato",
-                  "availableQuantity": 99,
+                  "availableQuantity": 999,
                   "totalQuantity": 100,
                   "required_Quantity": 10
               },
